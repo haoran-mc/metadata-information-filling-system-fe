@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import User from '../views/User.vue'
 import Data from '../views/Data.vue'
+import userInfo from '../views/UserInfo.vue'
+import userData from '../views/UserData.vue'
+import userBatch from '../views/UserBatch.vue'
 
 Vue.use(VueRouter)
 
@@ -18,14 +21,19 @@ const routes = [
     component: Home
   },
   {
-    path: '/user',
-    name: 'User',
-    component: User
-  },
-  {
     path: '/data',
     name: 'Data',
     component: Data
+  },
+  {
+    path: '/user',
+    name: 'User',
+    component: User,
+    children: [
+      { path: '/user/info', component: userInfo },
+      { path: '/user/data', component: userData },
+      { path: '/user/batch', component: userBatch }
+    ]
   }
 ]
 
