@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './plugins/element.js'
+import './axios'
+
+import './assets/css/global.css'
 
 Vue.config.productionTip = false
 
