@@ -2,7 +2,6 @@
   <div class="home-container">
     <el-container>
       <!-- 导航栏 -->
-      <!-- 测试 -->
       <el-card class="nav">
         <el-menu style="border-right: white;" :default-active="activePath">
           <!-- 基本信息 -->
@@ -16,11 +15,83 @@
             <span slot="title">我的填报</span>
           </el-menu-item>
           <!-- 生成批次 -->
-          <el-menu-item index="/user/batch" @click="saveNavState('/user/batch')">
+          <el-menu-item @click="dialog = true">
             <i class="el-icon-setting"></i>
             <span slot="title">生成批次</span>
           </el-menu-item>
+          <!-- 生成批次填表抽屉 -->
+          <el-drawer
+            title="生成批次"
+            :before-close="handleClose"
+            :visible.sync="dialog"
+            size="40%"
+            custom-class="demo-drawer"
+            ref="drawer"
+          >
+            <div class="demo-drawer__content">
+              <el-form :model="form" label-width="60px">
+                <el-form-item label="年 份" label-width="120px">
+                  <el-select v-model="value" placeholder="请选择">
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label=" 批次名" label-width="120px">
+                  <el-col :span = "12">
+                    <el-input v-model="form.name" autocomplete="off"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-card>
+                  <div class="div_head" slot="header">
+                    <el-form-item label="项 目">
+                      <el-switch v-model="form.delivery1"></el-switch>
+                    </el-form-item>
+                  </div>
+                  <div>
+                      <el-checkbox class="el-checkbox-width" label="项目名" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="主持人" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="项目性质" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="立项单位排序" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="项目经费" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="立项时间" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="立项编号" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="验收时间" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="主持人联系方式" name="type" border></el-checkbox>
+                  </div>
+                </el-card>
+                <el-card>
+                  <div class="div_head" slot="header">
+                    <el-form-item label="教 材">
+                      <el-switch v-model="form.delivery2"></el-switch>
+                    </el-form-item>
+                  </div>
+                  <div>
+                    <el-checkbox-group v-model="form.type">
+                      <el-checkbox class="el-checkbox-width" label="教材名" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="主编" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="出版社" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="出版时间" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="入选时间" name="type" border></el-checkbox>
+                      <el-checkbox class="el-checkbox-width" label="添加附件" name="type" border></el-checkbox>
+                    </el-checkbox-group>
+                  </div>
+                </el-card>
+
+              </el-form>
+
+              <div class="div_button">
+                <el-button @click="cancelForm" >取 消</el-button>
+                <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '提交中 ...' : '确 定' }}</el-button>
+              </div>
+            </div>
+          </el-drawer>
+
         </el-menu>
+        <br><br>
         <el-menu style="border-right: white;">
           <el-menu-item @click="logout">
             <i class="el-icon-switch-button"></i>
@@ -55,6 +126,26 @@ export default {
   name: 'User',
   data: function () {
     return {
+      options: [{
+        value: '选项1',
+        label: '选项1'
+      }, {
+        value: '选项2',
+        label: '选项2'
+      }, {
+        value: '选项3',
+        label: '选项3'
+      }],
+      value: '',
+      dialog: false,
+      loading: false,
+      form: {
+        delivery1: false,
+        delivery2: false,
+        type: []
+      },
+      formLabelWidth: '80px',
+      timer: null,
       // 激活的路由
       activePath: ''
     }
@@ -92,6 +183,29 @@ export default {
           message: '已取消删除'
         })
       })
+    },
+    // 抽屉
+    handleClose (done) {
+      if (this.loading) {
+        return
+      }
+      this.$confirm('确定要提交表单吗？')
+        .then(_ => {
+          this.loading = true
+          this.timer = setTimeout(() => {
+            done()
+            // 动画关闭需要一定的时间
+            setTimeout(() => {
+              this.loading = false
+            }, 400)
+          }, 2000)
+        })
+        .catch(_ => {})
+    },
+    cancelForm () {
+      this.loading = false
+      this.dialog = false
+      clearTimeout(this.timer)
     }
   }
 }
@@ -113,7 +227,24 @@ export default {
 }
 
 .user-card {
-  margin-left: 5px;
-  margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 50px;
+}
+
+.el-checkbox-width{
+  width: 150px;
+  height: 25px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.div_head{
+  height: 30px;
+  text-align: left;
+}
+
+.div_button{
+  text-align: center;
+  margin-bottom: 20px;
 }
 </style>

@@ -21,8 +21,18 @@ import {
   Avatar,
   Dialog,
   Link,
+  Drawer,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  Switch,
+  Checkbox,
+  CheckboxGroup,
+  Select,
+  Option,
   Message,
   MessageBox
+
 } from 'element-ui'
 
 Vue.use(Button)
@@ -46,5 +56,15 @@ Vue.use(Input)
 Vue.use(Avatar)
 Vue.use(Dialog)
 Vue.use(Link)
+Vue.use(Drawer)
+Vue.use(Dropdown)
+Vue.use(DropdownItem)
+Vue.use(DropdownMenu)
+Vue.use(Switch)
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
+Vue.use(Select)
+Vue.use(Option)
+
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
