@@ -30,6 +30,13 @@ import {
   CheckboxGroup,
   Select,
   Option,
+  Tabs,
+  TabPane,
+  Breadcrumb,
+  BreadcrumbItem,
+  Descriptions,
+  DescriptionsItem,
+  Pagination,
   Message,
   MessageBox
 
@@ -66,5 +73,12 @@ Vue.use(CheckboxGroup)
 Vue.use(Select)
 Vue.use(Option)
 
+Vue.use(Tabs)
+Vue.use(TabPane)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
+Vue.use(Descriptions)
+Vue.use(DescriptionsItem)
+Vue.use(Pagination)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
