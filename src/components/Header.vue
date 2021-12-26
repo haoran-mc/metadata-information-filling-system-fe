@@ -17,8 +17,11 @@
     </span>
 
     <!-- 登录对话框 -->
-    <el-dialog class="login-dialog" :visible.sync="loginDialogVisible" width="30%"
-               @close="loginDialogClosed">
+    <el-dialog
+      class="login-dialog"
+      :visible.sync="loginDialogVisible"
+      width="30%"
+      @close="loginDialogClosed">
       <el-form
         :model="loginForm"
         :rules="loginFormRules"
