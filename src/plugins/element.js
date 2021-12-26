@@ -21,6 +21,13 @@ import {
   Avatar,
   Dialog,
   Link,
+  Tabs,
+  TabPane,
+  Breadcrumb,
+  BreadcrumbItem,
+  Descriptions,
+  DescriptionsItem,
+  Pagination,
   Message,
   MessageBox
 } from 'element-ui'
@@ -46,5 +53,12 @@ Vue.use(Input)
 Vue.use(Avatar)
 Vue.use(Dialog)
 Vue.use(Link)
+Vue.use(Tabs)
+Vue.use(TabPane)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
+Vue.use(Descriptions)
+Vue.use(DescriptionsItem)
+Vue.use(Pagination)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
