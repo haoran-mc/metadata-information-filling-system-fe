@@ -237,7 +237,7 @@ export default {
       }).then(() => {
         this.$message({
           type: 'success',
-          message: '删除成功!'
+          message: '登出成功!'
         })
         // 删除激活的链接
         window.sessionStorage.setItem('activePath', '')
@@ -247,7 +247,7 @@ export default {
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消删除'
+          message: '已取消登出'
         })
       })
     },
