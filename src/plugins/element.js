@@ -39,9 +39,11 @@ import {
   Pagination,
   Aside,
   DatePicker,
+  Radio,
+  RadioGroup,
+  RadioButton,
   Message,
   MessageBox
-
 } from 'element-ui'
 
 Vue.use(Button)
@@ -83,5 +85,8 @@ Vue.use(DescriptionsItem)
 Vue.use(Pagination)
 Vue.use(Aside)
 Vue.use(DatePicker)
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(RadioButton)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
