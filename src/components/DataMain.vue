@@ -94,7 +94,30 @@ export default {
       // 后端返回数据
       tableData: [],
       // 编辑对话框
-      editorDialogVisible: false,
+      editorProjectDialogVisible: false,
+      editorTextbookDialogVisible: false,
+      // 用户编辑的数据
+      editorProjectForm: {
+        project: {
+          name: '',
+          host: '',
+          category_first_level: '',
+          category_second_level: '',
+          category_third_level: '',
+          department: '',
+          money: 0,
+          number: '',
+          start_time: '',
+          end_time: '',
+          attachment: '',
+          year: '',
+          batch: ''
+        }
+      },
+      // TODO 编辑表单规则
+      editorProjectFormRules: {},
+      // 级联框，在函数中赋值给 userFillingForm 中 category
+      cascaderValue: [],
       // 详情对话框
       detailDialogVisible: false
     }
@@ -112,9 +135,23 @@ export default {
       }
     },
     handleEdit (index, row) {
+      if (this.category === 'project') {
+        this.editorProjectDialogVisible = true
+      } else {
+        this.editorTextbookDialogVisible = true
+      }
       console.log(index, row)
     },
+    editorProjectDialogClosed () {
+      this.$refs.editorProjectFormRef.resetFields()
+    },
     handleDelete (index, row) {
+      console.log(index, row)
+    },
+    handleOut (index, row) {
+      console.log(index, row)
+    },
+    handleCareful (index, row) {
       console.log(index, row)
     },
     editorDialogClosed () {
