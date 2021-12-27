@@ -10,7 +10,8 @@ export default new Vuex.Store({
     key: Date.now(),
     year: sessionStorage.getItem('year'),
     batchIdx: sessionStorage.getItem('batchIdx'),
-    batchName: sessionStorage.getItem('batchName')
+    batchName: sessionStorage.getItem('batchName'),
+    collapseMap: JSON.parse(sessionStorage.getItem('collapseMap'))
   },
   mutations: {
     // set，状态与载体
@@ -35,18 +36,24 @@ export default new Vuex.Store({
       state.batchName = batchName
       sessionStorage.setItem('batchName', batchName)
     },
+    SET_COLLAPSEMAP: (state, collapseMap) => {
+      state.collapseMap = collapseMap
+      sessionStorage.setItem('collapseMap', JSON.stringify(collapseMap))
+    },
     REMOVE_INFO: (state) => {
       state.token = ''
       state.userInfo = {}
       state.year = ''
       state.batchIdx = ''
       state.batchName = ''
+      state.collapseMap = {}
       // localStorage 与 sessionStorage
       localStorage.setItem('token', '')
       sessionStorage.setItem('userInfo', JSON.stringify(''))
       sessionStorage.setItem('year', '')
       sessionStorage.setItem('batchIdx', '')
       sessionStorage.setItem('batchName', '')
+      sessionStorage.setItem('collapseMap', JSON.stringify(''))
     },
     increment (state) {
       state.key = Date.now()
@@ -68,6 +75,9 @@ export default new Vuex.Store({
     },
     getBatchName: state => {
       return state.batchName
+    },
+    getCollapseMap: state => {
+      return state.collapseMap
     }
   },
   actions: {
