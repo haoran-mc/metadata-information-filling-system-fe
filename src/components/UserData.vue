@@ -1,5 +1,8 @@
 <template>
-  <div></div>
+  <el-container>
+    <el-card class="user-data-card">
+    </el-card>
+  </el-container>
 </template>
 
 <script>
@@ -9,5 +12,7 @@ export default {
 </script>
 
 <style scoped>
-
+.user-data-card {
+  width: 100%;
+}
 </style>
