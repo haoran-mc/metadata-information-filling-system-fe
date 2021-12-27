@@ -2,27 +2,26 @@
     <!-- 生成批次填表抽屉 -->
       <el-container>
         <el-card class="user-batch-card">
-        <el-form :model="generateForm.batch.year" label-width="60px">
+        <el-form :model="generateForm.batch.year" label-width="60px" :inline="true">
           <el-form-item label="年 份" label-width="50px">
-            <el-select v-model="value" placeholder="请选择">
+            <el-date-picker v-model="value3" type="year" placeholder="请选择年份" size="mini" style="width: 130px">
               <el-option
                 v-for="item in options"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
               </el-option>
-            </el-select>
+            </el-date-picker>
           </el-form-item>
-          <el-form-item label=" 批次名" label-width="60px">
+          <el-form-item label=" 批次名" label-width="85px">
             <el-col :span = "12">
-              <el-input v-model="generateForm.batch.name" autocomplete="off"></el-input>
+              <el-input v-model="generateForm.batch.name" placeholder="例：本科第一轮评估" autocomplete="off" style="width: 280px" size="mini"></el-input>
             </el-col>
           </el-form-item>
-          <el-card>
+          <el-card style="background-color: #f6f8f8">
             <div class="div_head" slot="header">
               <el-form-item label="项 目">
-                <el-switch v-model="generateForm.project.project" value="project"
-                ></el-switch>
+                <el-switch v-model="generateForm.project.project" value="project"></el-switch>
               </el-form-item>
             </div>
             <div>
@@ -80,7 +79,7 @@
               </el-checkbox-group>
             </div>
           </el-card>
-          <el-card>
+          <el-card style="background-color: #f6f8f8; margin-top: 10px">
             <div class="div_head" slot="header">
               <el-form-item label="教 材">
                 <el-switch v-model="generateForm.textbook.textbook" value="textbook"></el-switch>
@@ -137,6 +136,8 @@ export default {
   name: 'UserBatch',
   data () {
     return {
+      // 返回年份
+      value3: '',
       options: [{
         value: 'year1',
         label: '2021'
@@ -233,5 +234,7 @@ export default {
 .div_button{
   text-align: center;
   margin-bottom: 20px;
+  margin-top: 20px;
+  float: right;
 }
 </style>
