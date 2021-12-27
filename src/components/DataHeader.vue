@@ -13,46 +13,96 @@
     <!-- 填报对话框 -->
     <el-dialog
     :visible.sync="fillingDialogVisible"
-    width="30%"
+    width="50%"
     @close="fillingDialogClosed">
-      <el-form
-        :model="userFillingForm"
-        :rules="fillingFormRules"
-        ref="fillingFormRef"
-        title="填报"
-      >
-        <div class="data-project">
-          <el-form-item prop="name" label="项目名">
-            <el-input v-model="userFillingForm.project.name"></el-input>
-          </el-form-item>
-          <el-form-item prop="host" label="主持人">
-            <el-input v-model="userFillingForm.project.host"></el-input>
-          </el-form-item>
-          <el-form-item prop="category" label="项目性质">
-            <el-input v-model="cascaderValue"></el-input>
-          </el-form-item>
-          <el-form-item prop="department" label="部门">
-            <el-input v-model="userFillingForm.project.department"></el-input>
-          </el-form-item>
-          <el-form-item prop="money" label="经费">
-            <el-input v-model="userFillingForm.project.money"></el-input>
-          </el-form-item>
-          <el-form-item prop="number" label="项目编号">
-            <el-input v-model="userFillingForm.project.number"></el-input>
-          </el-form-item>
-          <el-form-item prop="start_time" label="项目开始时间">
-            <el-input v-model="userFillingForm.project.start_time"></el-input>
-          </el-form-item>
-          <el-form-item prop="end_time" label="项目结束时间">
-            <el-input v-model="userFillingForm.project.end_time"></el-input>
-          </el-form-item>
-          <el-form-item prop="attachment" label="附件">
-            <el-input v-model="userFillingForm.project.attachment"></el-input>
-          </el-form-item>
-        </div>
-        <div class="data-textbook">
-        </div>
-      </el-form>
+        <el-form
+          :inline="true"
+          :model="userFillingForm"
+          :rules="fillingFormRules"
+          size="medium"
+          ref="fillingFormRef"
+          title="填报"
+        >
+          <div class="card">
+            <el-form-item prop="projectName" style="width: 30%">
+              <el-input v-model="userFillingForm.project.name" placeholder="项目名"></el-input>
+            </el-form-item>
+            <el-form-item prop="projectHost" style="width: 30%">
+              <el-input v-model="userFillingForm.project.host" placeholder="主持人"></el-input>
+            </el-form-item>
+            <el-form-item prop="projectUsername" style="width: 30%">
+              <el-input v-model="userFillingForm.project.username" placeholder="填表人"></el-input>
+            </el-form-item>
+            <el-form-item prop="projectCategoryLevel" style="width: 30%">
+              <el-cascader :options="category_level" clearable size="medium" placeholder="项目级别"></el-cascader>
+            </el-form-item>
+            <el-form-item prop="projectDepartment" style="width: 30%">
+              <el-input v-model="userFillingForm.project.department" placeholder="部门"></el-input>
+            </el-form-item>
+            <el-form-item prop="projectMoney" style="width: 30%">
+              <el-input v-model="userFillingForm.project.money" placeholder="经费"></el-input>
+            </el-form-item>
+            <el-form-item prop="projectNumber" style="width: 30%">
+              <el-input v-model="userFillingForm.project.number" placeholder="编号"></el-input>
+            </el-form-item>
+            <el-form-item prop="projectPublishingTime" style="width: 30%">
+              <el-date-picker
+                v-model="userFillingForm.project.start_time" type="date" placeholder="项目开始时间">
+              </el-date-picker>
+            </el-form-item>
+            <el-form-item prop="projectPublishingTime" style="width: 30%">
+              <el-date-picker
+                v-model="userFillingForm.project.end_time" type="date" placeholder="项目结束时间">
+              </el-date-picker>
+            </el-form-item>
+            <!-- 上传附件 -->
+            <!--
+            <el-upload
+              class="upload-demo"
+              drag
+              action="https://jsonplaceholder.typicode.com/posts/">
+              <i class="el-icon-upload"></i>
+              <div class="el-upload__text">将压缩包拖到此处，或<em>点击上传</em></div>
+              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+            -->
+          </div>
+          <div class="card">
+            <el-form-item prop="textbookName" style="width: 30%">
+              <el-input v-model="userFillingForm.textbook.name" placeholder="教材名"></el-input>
+            </el-form-item>
+            <el-form-item prop="textbookEditor" style="width: 30%">
+              <el-input v-model="userFillingForm.textbook.editor" placeholder="主编"></el-input>
+            </el-form-item>
+            <el-form-item prop="textbookUsername" style="width: 30%">
+              <el-input v-model="userFillingForm.textbook.username" placeholder="填表人"></el-input>
+            </el-form-item>
+            <el-form-item prop="textbookPublishingHouse" style="width: 30%">
+              <el-input v-model="userFillingForm.textbook.publishing_house" placeholder="出版社"></el-input>
+            </el-form-item>
+            <el-form-item prop="textbookPublishingTime" style="width: 30%">
+              <el-date-picker
+                v-model="userFillingForm.textbook.publishing_time" type="date" placeholder="出版时间">
+              </el-date-picker>
+            </el-form-item>
+            <el-form-item prop="textbookSelectionTime" style="width: 30%">
+              <el-date-picker
+                v-model="userFillingForm.textbook.selection_time" type="date" placeholder="发行时间">
+              </el-date-picker>
+            </el-form-item>
+            <!-- 上传附件 -->
+            <!--
+            <el-upload
+              class="upload-demo"
+              drag
+              action="https://jsonplaceholder.typicode.com/posts/">
+              <i class="el-icon-upload"></i>
+              <div class="el-upload__text">将压缩包拖到此处，或<em>点击上传</em></div>
+              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+            -->
+          </div>
+        </el-form>
 
       <!-- 填报按钮 -->
       <div style="text-align: center; margin-top: 10px; margin-bottom: 30px;">
@@ -63,64 +113,6 @@
         >填 报
         </el-button>
       </div>
-    </el-dialog>
-
-    <el-dialog
-      :visible.sync="fillingDialogVisible"
-      width="30%"
-      @close="fillingDialogClosed">
-      <el-checkbox-group v-model="generateForm.project.type">
-        <el-checkbox class="el-checkbox-width"
-                     label="项目名"
-                     name="name"
-                     value="name"
-                     border></el-checkbox>
-        <el-checkbox class="el-checkbox-width"
-                     label="主持人"
-                     name="host"
-                     value="host"
-                     border></el-checkbox>
-        <el-checkbox class="el-checkbox-width"
-                     label="项目性质"
-                     name="category_level"
-                     value="category_level"
-                     border></el-checkbox>
-        <el-checkbox class="el-checkbox-width"
-                     label="立项单位排序"
-                     name="department"
-                     value="department"
-                     border></el-checkbox>
-        <el-checkbox class="el-checkbox-width"
-                     label="项目经费"
-                     name="money"
-                     value="money"
-                     border></el-checkbox>
-        <el-checkbox class="el-checkbox-width"
-                     label="立项时间"
-                     name="start_time"
-                     value="start_time"
-                     border></el-checkbox>
-        <el-checkbox class="el-checkbox-width"
-                     label="立项编号"
-                     name="number"
-                     value="number"
-                     border></el-checkbox>
-        <el-checkbox class="el-checkbox-width"
-                     label="验收时间"
-                     name="end_time"
-                     value="end_time"
-                     border></el-checkbox>
-        <el-checkbox class="el-checkbox-width"
-                     label="主持人联系方式"
-                     name="phone"
-                     value="phone"
-                     border></el-checkbox>
-        <el-checkbox class="el-checkbox-width"
-                     label="添加附件"
-                     name="attachment_path"
-                     value="attachment_path"
-                     border></el-checkbox>
-      </el-checkbox-group>
     </el-dialog>
   </el-container>
 </template>
@@ -145,7 +137,7 @@ export default {
           category_second_level: '',
           category_third_level: '',
           department: '',
-          money: 0,
+          money: null,
           number: '',
           start_time: '',
           end_time: '',
@@ -166,7 +158,30 @@ export default {
       // TODO 填报表单规则
       fillingFormRules: {},
       // 级联框，在函数中赋值给 userFillingForm 中 category
-      cascaderValue: []
+      category_level: [
+        {
+          value: '国家级',
+          label: '国家级',
+          children: [
+            { value: '科技部项目', label: '科技部项目' },
+            { value: '国家自然基金项目', label: '国家自然基金项目' },
+            { value: '国家社科基金项目', label: '国家社科基金项目' }
+          ]
+        },
+        { value: '国防/军队重要科研项目', label: '国防/军队重要科研项目' },
+        { value: '境外合作科研项目', label: '境外合作科研项目' },
+        { value: '部委级项目', label: '部委级项目' },
+        {
+          value: '省级项目',
+          label: '省级项目',
+          children: [
+            { value: '省教育厅项目', label: '省教育厅项目' },
+            { value: '省科技厅项目', label: '省科技厅项目' },
+            { value: '省自然科学基金', label: '省自然科学基金' },
+            { value: '省哲学/社科基金', label: '省哲学/社科基金' }
+          ]
+        }
+      ]
     }
   },
   methods: {
@@ -203,5 +218,12 @@ export default {
 .font-layout {
   line-height: 60px;
   margin-top: -20px;
+}
+
+.card {
+  padding: 20px;
+  background-color: #F6F8F8;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 </style>

@@ -38,7 +38,9 @@ import {
   DescriptionsItem,
   Pagination,
   Aside,
+  Cascader,
   DatePicker,
+  Upload,
   Radio,
   RadioGroup,
   RadioButton,
@@ -84,7 +86,9 @@ Vue.use(Descriptions)
 Vue.use(DescriptionsItem)
 Vue.use(Pagination)
 Vue.use(Aside)
+Vue.use(Cascader)
 Vue.use(DatePicker)
+Vue.use(Upload)
 Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(RadioButton)
