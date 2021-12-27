@@ -37,6 +37,7 @@ import {
   Descriptions,
   DescriptionsItem,
   Pagination,
+  Aside,
   Message,
   MessageBox
 
@@ -72,7 +73,6 @@ Vue.use(Checkbox)
 Vue.use(CheckboxGroup)
 Vue.use(Select)
 Vue.use(Option)
-
 Vue.use(Tabs)
 Vue.use(TabPane)
 Vue.use(Breadcrumb)
@@ -80,5 +80,6 @@ Vue.use(BreadcrumbItem)
 Vue.use(Descriptions)
 Vue.use(DescriptionsItem)
 Vue.use(Pagination)
+Vue.use(Aside)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
