@@ -11,6 +11,7 @@ export default new Vuex.Store({
     year: sessionStorage.getItem('year'),
     batchIdx: sessionStorage.getItem('batchIdx'),
     batchName: sessionStorage.getItem('batchName'),
+    category: 'project',
     collapseMap: JSON.parse(sessionStorage.getItem('collapseMap'))
   },
   mutations: {
@@ -36,6 +37,10 @@ export default new Vuex.Store({
       state.batchName = batchName
       sessionStorage.setItem('batchName', batchName)
     },
+    SET_CATEGORY: (state, category) => {
+      state.category = category
+      sessionStorage.setItem('category', category)
+    },
     SET_COLLAPSEMAP: (state, collapseMap) => {
       state.collapseMap = collapseMap
       sessionStorage.setItem('collapseMap', JSON.stringify(collapseMap))
@@ -47,12 +52,14 @@ export default new Vuex.Store({
       state.batchIdx = ''
       state.batchName = ''
       state.collapseMap = {}
+      state.category = ''
       // localStorage 与 sessionStorage
       localStorage.setItem('token', '')
       sessionStorage.setItem('userInfo', JSON.stringify(''))
       sessionStorage.setItem('year', '')
       sessionStorage.setItem('batchIdx', '')
       sessionStorage.setItem('batchName', '')
+      sessionStorage.setItem('category', '')
       sessionStorage.setItem('collapseMap', JSON.stringify(''))
     },
     increment (state) {
