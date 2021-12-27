@@ -74,7 +74,7 @@ export default {
   background-color: #F2F2F2;
 }
 
-.el-card {
+.home-card {
   width: 80%;
   margin: 50px auto;
 }
