@@ -3,9 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import User from '../views/User.vue'
 import Data from '../views/Data.vue'
-import userInfo from '../views/UserInfo.vue'
-import userData from '../views/UserData.vue'
-import userBatch from '../views/UserBatch.vue'
+import userInfo from '../components/UserInfo.vue'
+import userData from '../components/UserData.vue'
+import userBatch from '../components/UserBatch.vue'
 
 Vue.use(VueRouter)
 
