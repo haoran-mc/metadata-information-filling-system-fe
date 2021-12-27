@@ -41,6 +41,9 @@ import {
   Cascader,
   DatePicker,
   Upload,
+  Radio,
+  RadioGroup,
+  RadioButton,
   Message,
   MessageBox
 } from 'element-ui'
@@ -86,5 +89,8 @@ Vue.use(Aside)
 Vue.use(Cascader)
 Vue.use(DatePicker)
 Vue.use(Upload)
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(RadioButton)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
