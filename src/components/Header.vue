@@ -83,7 +83,6 @@ export default {
       // 添加用户的表单数据
       loginForm: {
         phone: '18726698277',
-        username: '刘浩然',
         password: 'haoran232'
       },
       // 添加表单的验证规则对象
