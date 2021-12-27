@@ -38,9 +38,11 @@ import {
   DescriptionsItem,
   Pagination,
   Aside,
+  Cascader,
+  DatePicker,
+  Upload,
   Message,
   MessageBox
-
 } from 'element-ui'
 
 Vue.use(Button)
@@ -81,5 +83,8 @@ Vue.use(Descriptions)
 Vue.use(DescriptionsItem)
 Vue.use(Pagination)
 Vue.use(Aside)
+Vue.use(Cascader)
+Vue.use(DatePicker)
+Vue.use(Upload)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
