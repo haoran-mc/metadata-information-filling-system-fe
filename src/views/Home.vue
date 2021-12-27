@@ -3,7 +3,7 @@
     <el-card class="home-card">
       <el-collapse v-model="activeName" accordion>
         <div v-for="(value, key) in collapseMap" :key="key">
-          <el-collapse-item title="key" name="key">
+          <el-collapse-item title="key" name="">
             <el-table
               :data="value"
               :show-header="false"
@@ -27,22 +27,22 @@ export default {
       activeName: '',
       // 所有的批次
       batches: [
-        { id: 1, year: 2017, batch_idx: 1, batch_name: '第一轮本科评估', end_time: '2017-05-08T00:00:00.000+00:00' },
-        { id: 2, year: 2017, batch_idx: 2, batch_name: '第二轮本科评估', end_time: '2017-08-21T00:00:00.000+00:00' },
-        { id: 3, year: 2017, batch_idx: 3, batch_name: '一流本科评估', end_time: '2017-09-10T00:00:00.000+00:00' },
-        { id: 4, year: 2017, batch_idx: 4, batch_name: '第三轮本科评估', end_time: '2017-11-02T00:00:00.000+00:00' },
-        { id: 5, year: 2017, batch_idx: 5, batch_name: '第四轮本科评估', end_time: '2017-11-23T00:00:00.000+00:00' },
-        { id: 6, year: 2018, batch_idx: 1, batch_name: '第一轮本科评估', end_time: '2018-05-08T00:00:00.000+00:00' },
-        { id: 7, year: 2018, batch_idx: 2, batch_name: '第二轮本科评估', end_time: '2018-08-21T00:00:00.000+00:00' },
-        { id: 8, year: 2018, batch_idx: 3, batch_name: '第三轮本科评估', end_time: '2018-11-02T00:00:00.000+00:00' },
-        { id: 9, year: 2018, batch_idx: 4, batch_name: '第四轮本科评估', end_time: '2018-11-23T00:00:00.000+00:00' },
-        { id: 10, year: 2019, batch_idx: 1, batch_name: '第一轮本科评估', end_time: '2019-05-08T00:00:00.000+00:00' },
-        { id: 11, year: 2019, batch_idx: 2, batch_name: '第二轮本科评估', end_time: '2019-08-21T00:00:00.000+00:00' },
-        { id: 12, year: 2019, batch_idx: 3, batch_name: '一流本科评估', end_time: '2019-09-10T00:00:00.000+00:00' },
-        { id: 13, year: 2020, batch_idx: 1, batch_name: '第一轮本科评估', end_time: '2020-05-08T00:00:00.000+00:00' },
-        { id: 14, year: 2020, batch_idx: 2, batch_name: '第二轮本科评估', end_time: '2020-08-21T00:00:00.000+00:00' },
-        { id: 15, year: 2020, batch_idx: 3, batch_name: '一流本科评估', end_time: '2020-09-10T00:00:00.000+00:00' },
-        { id: 16, year: 2020, batch_idx: 1, batch_name: '第一轮本科评估', end_time: '2021-05-08T00:00:00.000+00:00' }
+        { id: 1, year: 2017, batch_idx: 1, batch_name: '2017年第一轮本科评估', end_time: '2017-05-08T00:00:00.000+00:00' },
+        { id: 2, year: 2017, batch_idx: 2, batch_name: '2017年第二轮本科评估', end_time: '2017-08-21T00:00:00.000+00:00' },
+        { id: 3, year: 2017, batch_idx: 3, batch_name: '2017年一流本科评估', end_time: '2017-09-10T00:00:00.000+00:00' },
+        { id: 4, year: 2017, batch_idx: 4, batch_name: '2017年第三轮本科评估', end_time: '2017-11-02T00:00:00.000+00:00' },
+        { id: 5, year: 2017, batch_idx: 5, batch_name: '2017年第四轮本科评估', end_time: '2017-11-23T00:00:00.000+00:00' },
+        { id: 6, year: 2018, batch_idx: 1, batch_name: '2018年第一轮本科评估', end_time: '2018-05-08T00:00:00.000+00:00' },
+        { id: 7, year: 2018, batch_idx: 2, batch_name: '2018年第二轮本科评估', end_time: '2018-08-21T00:00:00.000+00:00' },
+        { id: 8, year: 2018, batch_idx: 3, batch_name: '2018年第三轮本科评估', end_time: '2018-11-02T00:00:00.000+00:00' },
+        { id: 9, year: 2018, batch_idx: 4, batch_name: '2018年第四轮本科评估', end_time: '2018-11-23T00:00:00.000+00:00' },
+        { id: 10, year: 2019, batch_idx: 1, batch_name: '2019年第一轮本科评估', end_time: '2019-05-08T00:00:00.000+00:00' },
+        { id: 11, year: 2019, batch_idx: 2, batch_name: '2019年第二轮本科评估', end_time: '2019-08-21T00:00:00.000+00:00' },
+        { id: 12, year: 2019, batch_idx: 3, batch_name: '2019年一流本科评估', end_time: '2019-09-10T00:00:00.000+00:00' },
+        { id: 13, year: 2020, batch_idx: 1, batch_name: '2020年第一轮本科评估', end_time: '2020-05-08T00:00:00.000+00:00' },
+        { id: 14, year: 2020, batch_idx: 2, batch_name: '2020年第二轮本科评估', end_time: '2020-08-21T00:00:00.000+00:00' },
+        { id: 15, year: 2020, batch_idx: 3, batch_name: '2020年一流本科评估', end_time: '2020-09-10T00:00:00.000+00:00' },
+        { id: 16, year: 2020, batch_idx: 1, batch_name: '2020年第一轮本科评估', end_time: '2021-05-08T00:00:00.000+00:00' }
       ],
       // 将批次按年分
       collapseMap: this.$store.getters.getCollapseMap
