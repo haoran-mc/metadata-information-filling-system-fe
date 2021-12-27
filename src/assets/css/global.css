@@ -35,10 +35,3 @@ element.style {
 .el-cascader-menu__list {
     height: 300px;
 }
-
-.data-container {
-    width: 1150px;
-    margin: 0 auto;
-    height: 750px;
-    background-color: #F2F2F2;
-}

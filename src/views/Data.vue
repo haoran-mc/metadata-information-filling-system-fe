@@ -29,17 +29,12 @@ export default {
 </script>
 
 <style>
-.data-bread {
-  margin-top: 30px;
-  margin-left: 20px;
-}
-.data-main {
-  height: 550px;
-  margin-left: 10px;
-  margin-top: 18px;
-  width: 710px;
-}
-.data-footer {
-  text-align: center;
+.data-container {
+  width: 1150px;
+  margin: 0 auto;
+  height: 750px;
+  padding-left: 80px;
+  padding-right: 80px;
+  background-color: #F2F2F2;
 }
 </style>

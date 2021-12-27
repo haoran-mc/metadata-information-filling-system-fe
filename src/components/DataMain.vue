@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
   <el-container class="data-main">
+=======
+  <el-container>
+>>>>>>> main
   <!-- 主页面显示 -->
   <div>
     <!-- 面包屑 -->
@@ -9,7 +13,7 @@
       <el-breadcrumb-item>{{this.category_chinese}}</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 数据 -->
-    <el-card class="data-main">
+    <el-card>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column label="名称" width="385">
           <template slot-scope="scope">
@@ -178,9 +182,15 @@ export default {
 
 <style scoped>
 .data-main {
+<<<<<<< HEAD
   height: 550px;
   margin-left: 10px;
   margin-top: 18px;
   width: 710px;
+=======
+  margin-right: 20px;   /* 因为 el_card__body padding = 20px */
+  margin-top: 58px;   /* 与 aside 一样，上边距为 58px */
+  width: 100%;   /* 尽量不用具体数据 */
+>>>>>>> main
 }
 </style>
