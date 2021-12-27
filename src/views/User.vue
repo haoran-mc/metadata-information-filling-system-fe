@@ -244,6 +244,7 @@ export default {
         // 跳转到主页
         this.$router.push('/home')
         this.$store.commit('REMOVE_INFO')
+        this.$store.commit('increment')
       }).catch(() => {
         this.$message({
           type: 'info',
