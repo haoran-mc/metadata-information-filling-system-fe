@@ -49,7 +49,7 @@ export default {
     }
   },
   created () {
-    this.getBatches()
+    // this.getBatches()
   },
   methods: {
     getBatches () {
