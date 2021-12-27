@@ -6,6 +6,8 @@ import Data from '../views/Data.vue'
 import userInfo from '../components/UserInfo.vue'
 import userData from '../components/UserData.vue'
 import userBatch from '../components/UserBatch.vue'
+import myProject from '../components/MyProjects.vue'
+import myTextbook from '../components/MyTextbook.vue'
 
 Vue.use(VueRouter)
 
@@ -31,7 +33,14 @@ const routes = [
     component: User,
     children: [
       { path: '/user/info', component: userInfo },
-      { path: '/user/data', component: userData },
+      {
+        path: '/user/data',
+        component: userData,
+        children: [
+          { path: '/user/data/projects', component: myProject },
+          { path: '/user/data/textbooks', component: myTextbook }
+        ]
+      },
       { path: '/user/batch', component: userBatch }
     ]
   }
