@@ -1,13 +1,14 @@
 <template>
   <el-container class="home-container">
-    <el-card>
-      <el-collapse>
-        <el-collapse-item title="一致性 Consistency" name="1">
-        </el-collapse-item>
-        <el-collapse-item title="反馈 Feedback" name="2">
-          <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-          <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
-        </el-collapse-item>
+    <el-card class="home-card">
+      <el-collapse v-model="activeName" accordion>
+        <div v-for="(value, key) in collapseMap" :key="key">
+          <el-collapse-item title="key" name="key">
+            <el-table :data="value" :show-header="false" @row-click="getBatchDetail">
+              <el-table-column prop="batch_name"></el-table-column>
+            </el-table>
+          </el-collapse-item>
+        </div>
       </el-collapse>
     </el-card>
   </el-container>
@@ -18,16 +19,49 @@ export default {
   name: 'Home',
   data: function () {
     return {
-      tableData: [
-        { yaer: '2021' },
-        { yaer: '2021' },
-        { yaer: '2021' },
-        { yaer: '2021' }
-      ]
+      // 折叠面板手风琴效果
+      activeName: '0',
+      // 所有的批次
+      batches: [],
+      // 将批次按年分
+      collapseMap: this.$store.getters.getCollapseMap
     }
   },
-  components: {},
+  created () {
+    this.getBatches()
+  },
   methods: {
+    getBatches () {
+      const _this = this
+      this.$axios.get('/metadatas').then(res => {
+        _this.batches = res.data.data
+
+        _this.collapseMap = {}
+
+        // 按年份分
+        const __this = _this
+        for (const item of _this.batches) {
+          if (item.year in __this.collapseMap) {
+            // 每个值都是一个数组
+            const arr = __this.collapseMap[item.year]
+            arr.push(item)
+            __this.collapseMap[item.year] = arr
+          } else {
+            const arr = []
+            arr.push(item)
+            __this.collapseMap[item.year] = arr
+          }
+        }
+        _this.$store.commit('SET_COLLAPSEMAP', __this.collapseMap)
+
+        for (const i in _this.collapseMap) {
+          console.log(i)
+          console.log(_this.collapseMap[i])
+        }
+      })
+    },
+    getBatchDetail (row) {
+    }
   }
 }
 </script>
