@@ -38,8 +38,8 @@
     </el-card>
   </div>
 
-  <!-- 编辑对话框-项目 -->
-  <el-dialog
+    <!-- 编辑对话框-项目 -->
+    <el-dialog
     :visible.sync="editorProjectDialogVisible"
     width="30%"
     @close="editorProjectDialogClosed">
@@ -79,11 +79,116 @@
       </div>
     </el-form>
   </el-dialog>
-
-    <!-- 详细对话框 -->
+    <!-- 编辑对话框-教材 -->
     <el-dialog
-      :visible.sync="detailDialogVisible"
-      width="30%">
+      :visible.sync="editorTextbookDialogVisible"
+      width="30%"
+      @close="editorTextbookDialogClosed">
+      <el-form
+        :model="editorTextbookForm"
+        ref="editorTextbookFormRef"
+        title="编辑"
+      >
+        <div class="data-project">
+          <el-form-item prop="name" label="教材名">
+            <el-input v-model="editorTextbookForm.textbook.name"></el-input>
+          </el-form-item>
+          <el-form-item prop="host" label="主编">
+            <el-input v-model="editorTextbookForm.textbook.host"></el-input>
+          </el-form-item>
+          <el-form-item prop="username" label="填表人">
+            <el-input v-model="editorTextbookForm.textbook.username"></el-input>
+          </el-form-item>
+          <el-form-item prop="publishhouse" label="出版社">
+            <el-input v-model="editorTextbookForm.textbook.publishing_house"></el-input>
+          </el-form-item>
+          <el-form-item prop="publishing_time" label="出版时间">
+            <el-input v-model="editorTextbookForm.textbook.publishing_time"></el-input>
+          </el-form-item>
+          <el-form-item prop="selection_time" label="发行时间">
+            <el-input v-model="editorTextbookForm.textbook.selection_time"></el-input>
+          </el-form-item>
+          <el-form-item prop="attachment" label="附件">
+            <el-input v-model="editorProjectForm.project.attachment"></el-input>
+          </el-form-item>
+        </div>
+      </el-form>
+    </el-dialog>
+    <!-- 详细对话框-项目 -->
+    <el-dialog
+      :visible.sync="detailProjectDialogVisible"
+      width="30%"
+      @close="detailProjectDialogClosed">
+      <el-form
+        :model="detailProjectForm"
+        ref="detailProjectFormRef"
+        title="详细"
+      >
+        <div class="data-project">
+          <el-form-item prop="name" label="项目名">
+            <el-input v-model="detailProjectForm.project.name"></el-input>
+          </el-form-item>
+          <el-form-item prop="host" label="主持人">
+            <el-input v-model="detailProjectForm.project.host"></el-input>
+          </el-form-item>
+          <el-form-item prop="category" label="项目性质">
+            <el-input v-model="cascaderValue"></el-input>
+          </el-form-item>
+          <el-form-item prop="department" label="部门">
+            <el-input v-model="detailProjectForm.project.department"></el-input>
+          </el-form-item>
+          <el-form-item prop="money" label="经费">
+            <el-input v-model="detailProjectForm.project.money"></el-input>
+          </el-form-item>
+          <el-form-item prop="number" label="项目编号">
+            <el-input v-model="detailProjectForm.project.number"></el-input>
+          </el-form-item>
+          <el-form-item prop="start_time" label="项目开始时间">
+            <el-input v-model="detailProjectForm.project.start_time"></el-input>
+          </el-form-item>
+          <el-form-item prop="end_time" label="项目结束时间">
+            <el-input v-model="detailProjectForm.project.end_time"></el-input>
+          </el-form-item>
+          <el-form-item prop="attachment" label="附件">
+            <el-input v-model="detailProjectForm.project.attachment"></el-input>
+          </el-form-item>
+        </div>
+      </el-form>
+    </el-dialog>
+    <!-- 详细对话框-教材 -->
+    <el-dialog
+      :visible.sync="detailTextbookDialogVisible"
+      width="30%"
+      @close="detailTextbookDialogClosed">
+      <el-form
+        :model="detailTextbookForm"
+        ref="detailTextbookFormRef"
+        title="详细"
+      >
+        <div class="data-project">
+          <el-form-item prop="name" label="教材名">
+            <el-input v-model="detailTextbookForm.textbook.name"></el-input>
+          </el-form-item>
+          <el-form-item prop="host" label="主编">
+            <el-input v-model="detailTextbookForm.textbook.host"></el-input>
+          </el-form-item>
+          <el-form-item prop="username" label="填表人">
+            <el-input v-model="detailTextbookForm.textbook.username"></el-input>
+          </el-form-item>
+          <el-form-item prop="publishhouse" label="出版社">
+            <el-input v-model="detailTextbookForm.textbook.publishing_house"></el-input>
+          </el-form-item>
+          <el-form-item prop="publishing_time" label="出版时间">
+            <el-input v-model="detailTextbookForm.textbook.publishing_time"></el-input>
+          </el-form-item>
+          <el-form-item prop="selection_time" label="发行时间">
+            <el-input v-model="detailTextbookForm.textbook.selection_time"></el-input>
+          </el-form-item>
+          <el-form-item prop="attachment" label="附件">
+            <el-input v-model="detailProjectForm.project.attachment"></el-input>
+          </el-form-item>
+        </div>
+      </el-form>
     </el-dialog>
   </el-container>
 </template>
@@ -124,12 +229,54 @@ export default {
           batch: ''
         }
       },
+      editorTextbookForm: {
+        textbook: {
+          name: '',
+          phone: '',
+          editor: '',
+          publishing_house: '',
+          publishing_time: '',
+          selection_time: '',
+          attachment_path: ''
+        }
+      },
       // TODO 编辑表单规则
       // editorProjectFormRules: {},
+      // editorTextbookFormRules: {},
       // 级联框，在函数中赋值给 userFillingForm 中 category
       cascaderValue: [],
       // 详情对话框
-      detailDialogVisible: false
+      detailProjectDialogVisible: false,
+      detailTextbookDialogVisible: false,
+      // 用户详细页面的数据
+      detailProjectForm: {
+        project: {
+          name: '',
+          host: '',
+          category_first_level: '',
+          category_second_level: '',
+          category_third_level: '',
+          department: '',
+          money: 0,
+          number: '',
+          start_time: '',
+          end_time: '',
+          attachment: '',
+          year: '',
+          batch: ''
+        }
+      },
+      detailTextbookForm: {
+        textbook: {
+          name: '',
+          phone: '',
+          editor: '',
+          publishing_house: '',
+          publishing_time: '',
+          selection_time: '',
+          attachment_path: ''
+        }
+      }
     }
   },
   created () {
@@ -183,6 +330,15 @@ export default {
     },
     editorProjectDialogClosed () {
       this.$refs.editorProjectFormRef.resetFields()
+    },
+    editorTextbookDialogClosed () {
+      this.$refs.editorTextbookFormRef.resetFields()
+    },
+    detailProjectDialogClosed () {
+      this.$refs.detailProjectFormRef.resetFields()
+    },
+    detailTextbookDialogClosed () {
+      this.$refs.detailTextbookFormRef.resetFields()
     },
     handleDelete (index, row) {
       console.log(index, row)
