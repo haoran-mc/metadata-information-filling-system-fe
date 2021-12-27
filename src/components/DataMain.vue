@@ -25,8 +25,9 @@
           </template>
         </el-table-column>
       </el-table>
+
       <!-- 分页 -->
-      <el-pagination background layout="prev, pager, next" :total="10" class="data-footer"></el-pagination>
+      <el-pagination background layout="prev, pager, next" :total="10" class="margin: 0 auto;"></el-pagination>
     </el-card>
   </div>
 
