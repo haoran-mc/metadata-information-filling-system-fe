@@ -83,6 +83,9 @@ export default new Vuex.Store({
     getBatchName: state => {
       return state.batchName
     },
+    getCategory: state => {
+      return state.category
+    },
     getCollapseMap: state => {
       return state.collapseMap
     }
