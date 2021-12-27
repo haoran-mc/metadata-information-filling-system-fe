@@ -1,15 +1,17 @@
 <template>
   <el-container>
-  <!-- 头部 -->
-  <el-card class="data-header">
-    <el-link type="primary" style="line-height: 60px" @click='setCategory("project")'>按项目填报</el-link>
-    <span style="padding: 0 10px 0 10px; line-height: 60px">|</span>
-    <el-link type="primary" style="line-height: 60px" @click='setCategory("textbook")'>按教材填报</el-link>
-    <el-button type="primary" @click="fillingDialogVisible = true">填报</el-button>
-  </el-card>
+    <!-- 头部 -->
+    <el-card class="data-header-card">
+      <div class="font-layout">
+        <el-link type="primary" style="line-height: 60px;" @click='setCategory("project")'>按项目填报</el-link>
+        <span style="padding: 0 10px 0 10px; line-height: 60px;">|</span>
+        <el-link type="primary" style="line-height: 60px;" @click='setCategory("textbook")'>按教材填报</el-link>
+        <el-button type="primary" @click="fillingDialogVisible = true" style="margin-left: 70%;">填 报</el-button>
+      </div>
+    </el-card>
 
-  <!-- 填报对话框 -->
-  <el-dialog
+    <!-- 填报对话框 -->
+    <el-dialog
     :visible.sync="fillingDialogVisible"
     width="30%"
     @close="fillingDialogClosed">
@@ -133,23 +135,14 @@ export default {
 </script>
 
 <style scoped>
-/*
-.data-header {
+.data-header-card {
   height: 60px;
-  width: 900px;
+  width: 100%;
   margin: 30px auto 0 auto;
-  background-color: #FFFFFF;
-  border-radius: 4px;
-  padding: 0 20px 0 20px;
 }
-*/
 
-.data-header {
-  height: 60px;
-  width: 900px;
-  margin: 30px auto 0 auto;
-  background-color: #FFFFFF;
-  border-radius: 4px;
-  padding: 0 20px 0 20px;
+.font-layout {
+  line-height: 60px;
+  margin-top: -20px;
 }
 </style>

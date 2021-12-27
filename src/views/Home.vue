@@ -3,7 +3,7 @@
     <el-card class="home-card">
       <el-collapse v-model="activeName" accordion>
         <div v-for="(value, key) in collapseMap" :key="key">
-          <el-collapse-item title="key" name="">
+          <el-collapse-item title="key">
             <el-table
               :data="value"
               :show-header="false"
