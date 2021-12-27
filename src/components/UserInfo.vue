@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <el-container>
+    <el-card class="user-info-card">
     <el-form
       :model="UserForm"
       ref="loginFormRef"
@@ -56,7 +57,8 @@
         <el-button type="primary" @click="userFormPut">保存</el-button>
       </el-form-item>
     </el-form>
-  </div>
+    </el-card>
+  </el-container>
 </template>
 
 <script>
@@ -156,7 +158,7 @@ export default {
 </script>
 
 <style scoped>
-.el-input{
-  width: 250px;
+.user-info-card {
+  width: 100%;
 }
 </style>
