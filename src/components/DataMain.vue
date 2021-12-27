@@ -9,11 +9,11 @@
       <el-breadcrumb-item>{{this.category_chinese}}</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 数据 -->
-    <el-card>
+    <el-card style="height: 85%">
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column label="名称" width="385">
+        <el-table-column label="名称">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.date }}</span>
+            <span style="margin-left: 10px">{{ scope.row.name }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -27,7 +27,14 @@
       </el-table>
 
       <!-- 分页 -->
-      <el-pagination background layout="prev, pager, next" :total="10" class="margin: 0 auto;"></el-pagination>
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :page-size="10"
+        style="float: right"
+        @current-change="handleCurrentChange"
+        :current-page="page_num"></el-pagination>
+<!--      :total="total"-->
     </el-card>
   </div>
 
@@ -38,7 +45,6 @@
     @close="editorProjectDialogClosed">
     <el-form
       :model="editorProjectForm"
-      :rules="editorProjectFormRules"
       ref="editorProjectFormRef"
       title="编辑"
       >
@@ -92,6 +98,9 @@ export default {
       batch_name: this.$store.getters.getBatchName,
       category: this.$store.getters.getCategory,
       category_chinese: '项目',
+      total: null,
+      page_num: 1,
+      page_size: 7,
       // 后端返回数据
       tableData: [],
       // 编辑对话框
@@ -116,7 +125,7 @@ export default {
         }
       },
       // TODO 编辑表单规则
-      editorProjectFormRules: {},
+      // editorProjectFormRules: {},
       // 级联框，在函数中赋值给 userFillingForm 中 category
       cascaderValue: [],
       // 详情对话框
@@ -124,10 +133,39 @@ export default {
     }
   },
   created () {
-    this.getDataList()
+    this.getDataBySessionInfo()
     this.changeCategoryEnglishToChinese()
   },
   methods: {
+    // 获取当前页数据
+    getDataBySessionInfo () {
+      const _this = this
+      this.year = this.$store.getters.getYear
+      this.category = this.$store.getters.getCategory
+      this.batch_idx = this.$store.getters.getBatchIdx
+      this.batch_name = this.$store.getters.getBatchName
+
+      this.$axios.get('/batches', {
+        params: {
+          year: _this.year,
+          batch_idx: _this.batch_idx,
+          category: _this.category,
+          page_num: _this.page_num,
+          page_size: _this.page_size
+        }
+      }).then(res => {
+        if (res.data.code !== 200) {
+          _this.$message.error('获取数据失败')
+          return res
+        }
+        console.log(res)
+        this.tableData = res.data.data
+      })
+    },
+    handleCurrentChange (newPage) {
+      this.page_num = newPage
+      this.getDataBySessionInfo()
+    },
     changeCategoryEnglishToChinese () {
       if (this.category === 'project') {
         this.category_chinese = '项目'
@@ -154,24 +192,6 @@ export default {
     },
     handleCareful (index, row) {
       console.log(index, row)
-    },
-    editorDialogClosed () {
-      this.$refs.editorFormRef.resetFields()
-    },
-    // 获取当前页数据
-    getDataList () {
-      const _this = this
-      this.$axios.get('/batches', {
-        params: {
-        }
-      }).then(res => {
-        if (res.data.code !== 200) {
-          _this.$message.error('获取数据失败')
-          return res
-        }
-        _this.tableData = res
-        _this.$store.commit('increment')
-      })
     }
   }
 }

@@ -11,7 +11,7 @@ export default new Vuex.Store({
     year: sessionStorage.getItem('year'),
     batchIdx: sessionStorage.getItem('batchIdx'),
     batchName: sessionStorage.getItem('batchName'),
-    category: 'project',
+    category: sessionStorage.getItem('category'),
     collapseMap: JSON.parse(sessionStorage.getItem('collapseMap'))
   },
   mutations: {

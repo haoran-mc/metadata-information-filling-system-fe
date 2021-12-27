@@ -188,6 +188,8 @@ export default {
     setCategory (category) {
       this.category = category
       this.$store.commit('SET_CATEGORY', category)
+      // this.$store.commit('increment')
+      this.$router.go(0)
     },
     fillingDialogClosed () {
       this.$refs.fillingFormRef.resetFields()
@@ -201,7 +203,6 @@ export default {
         }
         _this.$message.success('填报成功')
         _this.fillingDialogVisible = false
-        _this.getDataList()
       })
     }
   }

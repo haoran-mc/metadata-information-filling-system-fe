@@ -40,8 +40,8 @@ export default {
       if (this.category === 'project') {
         this.$axios.get('/projects', {
           params: {
-            year: _this.requestParam.year,
-            batch_idx: _this.requestParam.batch_idx,
+            year: _this.$store.getters.getYear,
+            batch_idx: _this.$store.getters.getBatchIdx,
             project_name: _this.selectByName
           }
         }).then(res => {
