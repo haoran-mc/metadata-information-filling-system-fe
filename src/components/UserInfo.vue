@@ -27,7 +27,7 @@
       </el-form-item>
       <!-- 按钮 -->
       <el-form-item>&nbsp;&nbsp;
-        <el-button type="primary" @click="userFormPut" style="margin-left: -2%">保存</el-button>
+        <el-button type="primary" @click="userFormPut" style="width: 20%; margin-left: 70%; margin-top: 10%">保存</el-button>
       </el-form-item>
     </el-form>
 
@@ -159,5 +159,6 @@ export default {
 <style scoped>
 .user-info-card {
   width: 100%;
+  height: 68%;
 }
 </style>
