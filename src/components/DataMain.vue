@@ -20,8 +20,8 @@
           <template slot-scope="scope">
             <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-            <el-button size="mini" type="success" @click="handleEdit(scope.$index, scope.row)">导出</el-button>
-            <el-button size="mini" type="warning" @click="handleEdit(scope.$index, scope.row)">详细</el-button>
+            <el-button size="mini" type="success" @click="handleOut(scope.$index, scope.row)">导出</el-button>
+            <el-button size="mini" type="warning" @click="handleCareful(scope.$index, scope.row)">详细</el-button>
           </template>
         </el-table-column>
       </el-table>
