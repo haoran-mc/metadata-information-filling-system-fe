@@ -1,14 +1,19 @@
 <template>
-  <el-container class="data-container">
+  <el-container>
   <!-- 查询-侧边栏 -->
-    <el-card class="data-query">
+    <el-card class="data-aside-card">
       <el-input v-model="selectByName" placeholder="请输入名称"></el-input>
       <el-button
-        style="width: 165px; margin-top: 10px"
+        style="width: 100%; margin-top: 15px; margin-bottom: 12px"
         type="primary"
         icon="el-icon-search"
         @click="queryByName"
       >查询</el-button>
+
+      <span class="data-aside-prompt">
+        <span class="red_dot">*</span>
+        请输入全称并点击查询
+      </span>
     </el-card>
     <!-- 查询结果对话框 -->
     <el-dialog>
@@ -52,10 +57,20 @@ export default {
 </script>
 
 <style scoped>
-.data-query {
-  height: 130px;
-  margin-left: 105px;
-  margin-top: 80px;
-  width: 205px;
+.data-aside-card {
+  margin-left: 20px;   /* 因为 el_card__body padding = 20px */
+  margin-top: 58px;   /* 与 main 一样，上边距为 58px */
+  width: 85%;
+}
+
+.data-aside-prompt {
+  font-size: 12px;
+  color: #999;
+}
+
+.red_dot {
+  margin-right: 5px;
+  vertical-align: middle;
+  color: red;
 }
 </style>
