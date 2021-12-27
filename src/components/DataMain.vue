@@ -30,11 +30,47 @@
     </el-card>
   </div>
 
-  <!-- 编辑对话框 -->
+  <!-- 编辑对话框-项目 -->
   <el-dialog
-    :visible.sync="editorDialogVisible"
+    :visible.sync="editorProjectDialogVisible"
     width="30%"
-    @close="editorDialogClosed">
+    @close="editorProjectDialogClosed">
+    <el-form
+      :model="editorProjectForm"
+      :rules="editorProjectFormRules"
+      ref="editorProjectFormRef"
+      title="编辑"
+      >
+      <div class="data-project">
+        <el-form-item prop="name" label="项目名">
+          <el-input v-model="editorProjectForm.project.name"></el-input>
+        </el-form-item>
+        <el-form-item prop="host" label="主持人">
+          <el-input v-model="editorProjectForm.project.host"></el-input>
+        </el-form-item>
+        <el-form-item prop="category" label="项目性质">
+          <el-input v-model="cascaderValue"></el-input>
+        </el-form-item>
+        <el-form-item prop="department" label="部门">
+          <el-input v-model="editorProjectForm.project.department"></el-input>
+        </el-form-item>
+        <el-form-item prop="money" label="经费">
+          <el-input v-model="editorProjectForm.project.money"></el-input>
+        </el-form-item>
+        <el-form-item prop="number" label="项目编号">
+          <el-input v-model="editorProjectForm.project.number"></el-input>
+        </el-form-item>
+        <el-form-item prop="start_time" label="项目开始时间">
+          <el-input v-model="editorProjectForm.project.start_time"></el-input>
+        </el-form-item>
+        <el-form-item prop="end_time" label="项目结束时间">
+          <el-input v-model="editorProjectForm.project.end_time"></el-input>
+        </el-form-item>
+        <el-form-item prop="attachment" label="附件">
+          <el-input v-model="editorProjectForm.project.attachment"></el-input>
+        </el-form-item>
+      </div>
+    </el-form>
   </el-dialog>
 
     <!-- 详细对话框 -->
