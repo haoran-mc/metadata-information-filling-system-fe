@@ -1,7 +1,7 @@
 <template>
-  <el-container class="data-container">
+  <el-container class="data-main">
   <!-- 主页面显示 -->
-  <div class="data-main">
+  <div>
     <!-- 面包屑 -->
     <el-breadcrumb separator-class="el-icon-arrow-right" class="data-bread">
       <el-breadcrumb-item>{{this.year}} 年填报数据</el-breadcrumb-item>
@@ -104,4 +104,10 @@ export default {
 </script>
 
 <style scoped>
+.data-main {
+  height: 550px;
+  margin-left: 10px;
+  margin-top: 18px;
+  width: 710px;
+}
 </style>
