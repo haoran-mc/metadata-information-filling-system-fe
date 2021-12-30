@@ -11,6 +11,7 @@ export default {
   name: 'MyTextbook',
   data () {
     return {
+      userId: this.$store.getters.getUser.id,
       tableData: []
     }
   },
@@ -18,7 +19,11 @@ export default {
     const _this = this
     this.$nextTick(() => {
       const __this = _this
-      _this.$axios.get('/user/data/textbooks').then(res => {
+      _this.$axios.get('/users/data/textbooks', {
+        params: {
+          id: this.userId
+        }
+      }).then(res => {
         if (res.data.code !== 200) {
           _this.$message.error('请求失败')
           return res
