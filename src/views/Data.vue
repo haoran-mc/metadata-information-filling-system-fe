@@ -24,7 +24,33 @@ import DataMain from '../components/DataMain'
 
 export default {
   name: 'Data',
-  components: { DataHeader, DataMain, DataAside }
+  components: { DataHeader, DataMain, DataAside },
+  data () {
+    return {
+      year: this.$store.getters.getYear,
+      batch_idx: this.$store.getters.getBatchIdx,
+      batch_name: this.$store.getters.getBatchName,
+      category: this.$store.getters.getCategory,
+      sp: {
+        project: {},
+        textbook: {}
+      }
+    }
+  },
+  created () {
+    // this.getSpProjectAndTextbook()
+  },
+  methods: {
+    /*
+    getSpProjectAndTextbook () {
+      this.$axios.get('/metadatas/sp', {
+        params: {
+          projectId:
+        }
+      })
+    }
+    */
+  }
 }
 </script>
 
