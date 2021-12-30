@@ -10,7 +10,7 @@
               <span slot="title">基本信息</span>
             </el-menu-item>
             <!-- 我的填报 -->
-            <el-menu-item index="/user/data" @click="saveNavState('/user/data')">
+            <el-menu-item index="/user/data" @click="saveNavState('/user/data/projects')">
               <i class="el-icon-document"></i>
               <span slot="title">我的填报</span>
             </el-menu-item>
