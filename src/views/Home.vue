@@ -68,10 +68,27 @@ export default {
       })
     },
     getBatchDetail (row) {
-      this.$store.commit('SET_YEAR', row.year)
-      this.$store.commit('SET_BATCHIDX', row.batch_idx)
-      this.$store.commit('SET_BATCHNAME', row.batch_name)
-      this.$router.push('/data')
+      const _this = this
+      this.$axios.get('/sp', {
+        params: {
+          year: row.year,
+          batch_idx: row.batch_idx
+        }
+      }).then(res => {
+        if (res.data.code !== 200) {
+          _this.$message.error('获取数据失败')
+          return res
+        }
+        // res.data.data.project_id
+        // res.data.data.textbook_id
+        this.$store.commit('SET_HAS_PROJECT', res.data.data.project_id)
+        this.$store.commit('SET_HAS_TEXTBOOK', res.data.data.textbook_id)
+        this.$store.commit('SET_YEAR', row.year)
+        this.$store.commit('SET_CATEGORY', 'project')
+        this.$store.commit('SET_BATCHIDX', row.batch_idx)
+        this.$store.commit('SET_BATCHNAME', row.batch_name)
+        this.$router.push('/data')
+      })
     }
   }
 }
