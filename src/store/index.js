@@ -12,7 +12,9 @@ export default new Vuex.Store({
     batchIdx: sessionStorage.getItem('batchIdx'),
     batchName: sessionStorage.getItem('batchName'),
     category: sessionStorage.getItem('category'),
-    collapseMap: JSON.parse(sessionStorage.getItem('collapseMap'))
+    collapseMap: JSON.parse(sessionStorage.getItem('collapseMap')),
+    hasProject: sessionStorage.getItem('hasProject'),
+    hasTextbook: sessionStorage.getItem('hasTextbook')
   },
   mutations: {
     // set，状态与载体
@@ -45,6 +47,24 @@ export default new Vuex.Store({
       state.collapseMap = collapseMap
       sessionStorage.setItem('collapseMap', JSON.stringify(collapseMap))
     },
+    SET_HAS_PROJECT: (state, projectId) => {
+      if (projectId !== null) {
+        state.hasProject = '1'
+        sessionStorage.setItem('hasProject', '1')
+      } else {
+        state.hasProject = ''
+        sessionStorage.setItem('hasProject', '')
+      }
+    },
+    SET_HAS_TEXTBOOK: (state, textbookId) => {
+      if (textbookId !== null) {
+        state.hasTextbook = '1'
+        sessionStorage.setItem('hasTextbook', '1')
+      } else {
+        state.hasTextbook = ''
+        sessionStorage.setItem('hasTextbook', '')
+      }
+    },
     REMOVE_INFO: (state) => {
       state.token = ''
       state.userInfo = {}
@@ -53,6 +73,8 @@ export default new Vuex.Store({
       state.batchName = ''
       state.collapseMap = {}
       state.category = ''
+      state.hasProject = null
+      state.hasTextbook = null
       // localStorage 与 sessionStorage
       localStorage.setItem('token', '')
       sessionStorage.setItem('userInfo', JSON.stringify(''))
@@ -60,6 +82,8 @@ export default new Vuex.Store({
       sessionStorage.setItem('batchIdx', '')
       sessionStorage.setItem('batchName', '')
       sessionStorage.setItem('category', '')
+      sessionStorage.setItem('hasProject', null)
+      sessionStorage.setItem('hasTextbook', null)
       sessionStorage.setItem('collapseMap', JSON.stringify(''))
     },
     increment (state) {
@@ -88,6 +112,12 @@ export default new Vuex.Store({
     },
     getCollapseMap: state => {
       return state.collapseMap
+    },
+    getHasProject: state => {
+      return state.hasProject
+    },
+    getHasTextbook: state => {
+      return state.hasTextbook
     }
   },
   actions: {
