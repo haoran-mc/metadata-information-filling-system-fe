@@ -133,22 +133,19 @@ export default {
         }
         const _this = this
         this.$axios.post('/accounts/login', this.loginForm).then(res => {
-          console.log(res)
           if (res.data.code !== 200) {
-            this.$message.error('登录失败！')
+            _this.$message.error('登录失败！')
             return
           }
-          this.$message.success('登录成功！')
+          _this.$message.success('登录成功！')
           // 隐藏添加用户的对话框
-          this.loginDialogVisible = false
+          _this.loginDialogVisible = false
 
           console.log('点击登录按钮，后端发来的数据：', res)
 
-          // const jwt = res.headers['authorization']
-          // 获取 jwt
-          const jwt = res.headers.authorization
+          const token = res.headers.authorization
           const userInfo = res.data.data
-          _this.$store.commit('SET_TOKEN', jwt)
+          _this.$store.commit('SET_TOKEN', token)
           _this.$store.commit('SET_USERINFO', userInfo)
 
           // console.log(_this.$store.getters.getUser)
