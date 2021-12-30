@@ -23,18 +23,18 @@
           ref="fillingFormRef"
           title="填报"
         >
-          <div class="card">
+          <div class="card" v-if="$store.getters.getHasProject === '1'">
             <el-form-item prop="projectName" style="width: 30%">
               <el-input v-model="userFillingForm.project.name" placeholder="项目名"></el-input>
             </el-form-item>
             <el-form-item prop="projectHost" style="width: 30%">
               <el-input v-model="userFillingForm.project.host" placeholder="主持人"></el-input>
             </el-form-item>
-            <el-form-item prop="projectUsername" style="width: 30%">
-              <el-input v-model="userFillingForm.project.username" placeholder="填表人"></el-input>
+            <el-form-item prop="projectUserPhone" style="width: 30%">
+              <el-input v-model="userFillingForm.project.phone" placeholder="填表人电话"></el-input>
             </el-form-item>
             <el-form-item prop="projectCategoryLevel" style="width: 30%">
-              <el-cascader :options="category_level" clearable size="medium" placeholder="项目级别"></el-cascader>
+              <el-cascader v-model="cascaderValue" :options="category_level" clearable size="medium" placeholder="项目级别"></el-cascader>
             </el-form-item>
             <el-form-item prop="projectDepartment" style="width: 30%">
               <el-input v-model="userFillingForm.project.department" placeholder="部门"></el-input>
@@ -67,15 +67,15 @@
             </el-upload>
             -->
           </div>
-          <div class="card">
+          <div class="card" v-if="$store.getters.getHasTextbook === '1'">
             <el-form-item prop="textbookName" style="width: 30%">
               <el-input v-model="userFillingForm.textbook.name" placeholder="教材名"></el-input>
             </el-form-item>
             <el-form-item prop="textbookEditor" style="width: 30%">
               <el-input v-model="userFillingForm.textbook.editor" placeholder="主编"></el-input>
             </el-form-item>
-            <el-form-item prop="textbookUsername" style="width: 30%">
-              <el-input v-model="userFillingForm.textbook.username" placeholder="填表人"></el-input>
+            <el-form-item prop="textbookUserPhone" style="width: 30%">
+              <el-input v-model="userFillingForm.textbook.phone" placeholder="填表人"></el-input>
             </el-form-item>
             <el-form-item prop="textbookPublishingHouse" style="width: 30%">
               <el-input v-model="userFillingForm.textbook.publishing_house" placeholder="出版社"></el-input>
@@ -133,6 +133,7 @@ export default {
         project: {
           name: '',
           host: '',
+          phone: '',
           category_first_level: '',
           category_second_level: '',
           category_third_level: '',
@@ -181,7 +182,8 @@ export default {
             { value: '省哲学/社科基金', label: '省哲学/社科基金' }
           ]
         }
-      ]
+      ],
+      cascaderValue: []
     }
   },
   methods: {
@@ -196,6 +198,24 @@ export default {
     },
     filling () {
       const _this = this
+
+      this.userFillingForm.project.year = this.year
+      this.userFillingForm.project.batch = this.batch_idx
+      if (this.cascaderValue[0]) {
+        this.userFillingForm.project.category_first_level = this.cascaderValue[0]
+      }
+      if (this.cascaderValue[1]) {
+        this.userFillingForm.project.category_second_level = this.cascaderValue[1]
+      }
+      if (this.cascaderValue[2]) {
+        this.userFillingForm.project.category_third_level = this.cascaderValue[2]
+      }
+
+      console.log('--', this.userFillingForm)
+
+      this.userFillingForm.textbook.year = this.year
+      this.userFillingForm.textbook.batch = this.batch_idx
+
       this.$axios.post('/batches', this.userFillingForm).then(res => {
         if (res.data.code !== 200) {
           this.$message.error('填报请求失败')
