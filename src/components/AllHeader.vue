@@ -125,7 +125,7 @@ export default {
     },
     // 登录
     login () {
-      this.$refs.loginFormRef.validate(async valid => {
+      this.$refs.loginFormRef.validate(valid => {
         // 如果验证失败，不允许发送请求
         if (!valid) {
           this.$message.error('验证失败')
