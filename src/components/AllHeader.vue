@@ -126,31 +126,32 @@ export default {
     // 登录
     login () {
       this.$refs.loginFormRef.validate(valid => {
-        // 如果验证失败，不允许发送请求
-        if (!valid) {
+        if (valid) {
+          const _this = this
+          this.$axios.post('/account/login', {
+            phone: this.loginForm.phone,
+            password: this.loginForm.password
+          }).then(res => {
+            if (res.data.code === 200) {
+              console.log('点击登录按钮，后端发来的数据：', res)
+
+              const token = res.headers.authorization
+              const userInfo = res.data.data
+              _this.$store.commit('SET_TOKEN', token)
+              _this.$store.commit('SET_USERINFO', userInfo)
+              _this.$store.commit('increment')
+
+              _this.$message.success('登录成功！')
+              _this.loginDialogVisible = false
+            } else {
+              _this.$message.error('登录失败！')
+            }
+          })
+        } else {
+          // 如果验证失败，不允许发送请求
           this.$message.error('验证失败')
           return valid
         }
-        const _this = this
-        this.$axios.post('/accounts/login', this.loginForm).then(res => {
-          if (res.data.code !== 200) {
-            _this.$message.error('登录失败！')
-            return
-          }
-          _this.$message.success('登录成功！')
-          // 隐藏添加用户的对话框
-          _this.loginDialogVisible = false
-
-          console.log('点击登录按钮，后端发来的数据：', res)
-
-          const token = res.headers.authorization
-          const userInfo = res.data.data
-          _this.$store.commit('SET_TOKEN', token)
-          _this.$store.commit('SET_USERINFO', userInfo)
-
-          // console.log(_this.$store.getters.getUser)
-          _this.$store.commit('increment')
-        })
       })
     },
     loginDialogClosed () {

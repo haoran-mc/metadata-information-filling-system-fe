@@ -44,6 +44,7 @@ import {
   Radio,
   RadioGroup,
   RadioButton,
+  Tag,
   Message,
   MessageBox
 } from 'element-ui'
@@ -92,5 +93,6 @@ Vue.use(Upload)
 Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(RadioButton)
+Vue.use(Tag)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

@@ -1,37 +1,37 @@
 <template>
-    <el-container class='user-container'>
-      <!-- 导航栏 -->
-      <el-aside>
-        <el-card class="user-aside">
-          <el-menu style="border-right: white;" :default-active="activePath">
-            <!-- 基本信息 -->
-            <el-menu-item index="/user/info" @click="saveNavState('/user/info')">
-              <i class="el-icon-menu"></i>
-              <span slot="title">基本信息</span>
-            </el-menu-item>
-            <!-- 我的填报 -->
-            <el-menu-item index="/user/data" @click="saveNavState('/user/data/projects')">
-              <i class="el-icon-document"></i>
-              <span slot="title">我的填报</span>
-            </el-menu-item>
-            <!-- 生成批次 -->
-            <el-menu-item index="/user/batch" @click="saveNavState('/user/batch')">
-              <i class="el-icon-setting"></i>
-              <span slot="title">生成批次</span>
-            </el-menu-item>
-            <el-menu-item @click="logout">
-              <i class="el-icon-switch-button"></i>
-              <span slot="title">退出登录</span>
-            </el-menu-item>
-          </el-menu>
-        </el-card>
-      </el-aside>
+  <el-container class='user-container'>
+    <!-- 导航栏 -->
+    <el-aside>
+      <el-card class="user-aside">
+        <el-menu style="border-right: white;" :default-active="activePath">
+          <!-- 基本信息 -->
+          <el-menu-item index="/user/info" @click="saveNavState('/user/info')">
+            <i class="el-icon-menu"></i>
+            <span slot="title">基本信息</span>
+          </el-menu-item>
+          <!-- 我的填报 -->
+          <el-menu-item index="/user/data" @click="saveNavState('/user/data/projects')">
+            <i class="el-icon-document"></i>
+            <span slot="title">我的填报</span>
+          </el-menu-item>
+          <!-- 生成批次 -->
+          <el-menu-item index="/user/manage" @click="saveNavState('/user/manage')">
+            <i class="el-icon-setting"></i>
+            <span slot="title">生成批次</span>
+          </el-menu-item>
+          <el-menu-item @click="logout">
+            <i class="el-icon-switch-button"></i>
+            <span slot="title">退出登录</span>
+          </el-menu-item>
+        </el-menu>
+      </el-card>
+    </el-aside>
 
-      <!-- 卡片栏 -->
-      <el-container style="width: 100%;">
-        <router-view></router-view>
-      </el-container>
+    <!-- 卡片栏 -->
+    <el-container style="width: 100%;">
+      <router-view></router-view>
     </el-container>
+  </el-container>
 </template>
 
 <script>
@@ -88,8 +88,8 @@ export default {
   margin: 0 auto;
   height: 750px;
   padding-top: 50px;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 39px;
+  padding-right: 65px;
   background-color: #F2F2F2;
 }
 

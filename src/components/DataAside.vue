@@ -6,7 +6,6 @@
       <el-button
         style="width: 100%; margin-top: 15px; margin-bottom: 12px"
         type="primary"
-        icon="el-icon-search"
         @click="queryByName"
       >查询</el-button>
 

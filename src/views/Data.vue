@@ -28,8 +28,8 @@ export default {
   data () {
     return {
       year: this.$store.getters.getYear,
-      batch_idx: this.$store.getters.getBatchIdx,
-      batch_name: this.$store.getters.getBatchName,
+      batchIdx: this.$store.getters.getBatchIdx,
+      batchName: this.$store.getters.getBatchName,
       category: this.$store.getters.getCategory,
       sp: {
         project: {},

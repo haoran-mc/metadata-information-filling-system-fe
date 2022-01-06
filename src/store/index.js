@@ -14,7 +14,9 @@ export default new Vuex.Store({
     category: sessionStorage.getItem('category'),
     collapseMap: JSON.parse(sessionStorage.getItem('collapseMap')),
     hasProject: sessionStorage.getItem('hasProject'),
-    hasTextbook: sessionStorage.getItem('hasTextbook')
+    hasTextbook: sessionStorage.getItem('hasTextbook'),
+    spProject: JSON.parse(sessionStorage.getItem('spProject')),
+    spTextbook: JSON.parse(sessionStorage.getItem('spTextbook'))
   },
   mutations: {
     // set，状态与载体
@@ -52,7 +54,7 @@ export default new Vuex.Store({
         state.hasProject = '1'
         sessionStorage.setItem('hasProject', '1')
       } else {
-        state.hasProject = ''
+        state.hasProject = null
         sessionStorage.setItem('hasProject', '')
       }
     },
@@ -61,9 +63,17 @@ export default new Vuex.Store({
         state.hasTextbook = '1'
         sessionStorage.setItem('hasTextbook', '1')
       } else {
-        state.hasTextbook = ''
+        state.hasTextbook = null
         sessionStorage.setItem('hasTextbook', '')
       }
+    },
+    SET_SPPROJECT: (state, spProject) => {
+      state.spProject = spProject
+      sessionStorage.setItem('spProject', JSON.stringify(spProject))
+    },
+    SET_SPTEXTBOOK: (state, spTextbook) => {
+      state.spTextbook = spTextbook
+      sessionStorage.setItem('spTextbook', JSON.stringify(spTextbook))
     },
     REMOVE_INFO: (state) => {
       state.token = ''
@@ -75,6 +85,8 @@ export default new Vuex.Store({
       state.category = ''
       state.hasProject = null
       state.hasTextbook = null
+      state.spProject = {}
+      state.spTextbook = {}
       // localStorage 与 sessionStorage
       localStorage.setItem('token', '')
       sessionStorage.setItem('userInfo', JSON.stringify(''))
@@ -85,6 +97,8 @@ export default new Vuex.Store({
       sessionStorage.setItem('hasProject', null)
       sessionStorage.setItem('hasTextbook', null)
       sessionStorage.setItem('collapseMap', JSON.stringify(''))
+      sessionStorage.setItem('spProject', JSON.stringify(''))
+      sessionStorage.setItem('spTextbook', JSON.stringify(''))
     },
     increment (state) {
       state.key = Date.now()
@@ -118,6 +132,12 @@ export default new Vuex.Store({
     },
     getHasTextbook: state => {
       return state.hasTextbook
+    },
+    getSpProject: state => {
+      return state.spProject
+    },
+    getSpTextbook: state => {
+      return state.spTextbook
     }
   },
   actions: {

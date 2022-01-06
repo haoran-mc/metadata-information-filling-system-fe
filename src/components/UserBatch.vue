@@ -1,134 +1,132 @@
 <template>
-    <!-- 生成批次填表抽屉 -->
-      <el-container>
-        <el-card class="user-batch-card">
-        <el-form :model="generateForm.batch.year" label-width="60px" :inline="true">
-          <el-form-item label="年 份" label-width="50px">
-            <el-date-picker v-model="value3" type="year" placeholder="请选择年份" size="mini" style="width: 130px">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
+  <!-- 生成批次填表抽屉 -->
+  <el-container>
+    <el-card class="user-batch-card">
+      <el-container style="height: 100%; overflow: auto">
+        <el-form :model="generateForm" label-width="60px" :inline="true">
+          <!-- 年份 -->
+          <el-form-item label="年 份" label-width="85px">
+            <el-date-picker v-model="generateForm.batch.year"
+                            type="year"
+                            placeholder="请选择年份"
+                            style="width: 100%"
+                            size="mini">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label=" 批次名" label-width="85px">
-            <el-col :span = "12">
-              <el-input v-model="generateForm.batch.name" placeholder="例：本科第一轮评估" autocomplete="off" style="width: 280px" size="mini"></el-input>
-            </el-col>
+          <!-- 批次名 -->
+          <el-form-item label="批次名" label-width="85px">
+            <el-input v-model="generateForm.batch.name"
+                      placeholder="例：本科第一轮评估"
+                      size="mini"></el-input>
           </el-form-item>
+          <el-form-item label="结束时间" label-width="85px">
+            <el-date-picker
+              v-model="generateForm.batch.endTime"
+              type="date"
+              placeholder="选择日期"
+              style="width: 100%"
+              size="mini">
+            </el-date-picker>
+          </el-form-item>
+          <!-- 项目卡片 -->
           <el-card style="background-color: #f6f8f8">
-            <div class="div_head" slot="header">
+            <!-- 项目开关 -->
+            <!-- TODO 打开开关，才能勾选 -->
+            <div class="div-head" slot="header">
               <el-form-item label="项 目">
-                <el-switch v-model="generateForm.project.project" value="project"></el-switch>
+                <el-switch v-model="generateForm.project.has"></el-switch>
               </el-form-item>
             </div>
-            <div>
-              <el-checkbox-group v-model="generateForm.project.type">
-                <el-checkbox class="el-checkbox-width"
-                             label="项目名"
-                             name="name"
-                             value="name"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="主持人"
-                             name="host"
-                             value="host"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="项目性质"
-                             name="category_level"
-                             value="category_level"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="立项单位排序"
-                             name="department"
-                             value="department"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="项目经费"
-                             name="money"
-                             value="money"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="立项时间"
-                             name="start_time"
-                             value="start_time"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="立项编号"
-                             name="number"
-                             value="number"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="验收时间"
-                             name="end_time"
-                             value="end_time"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="主持人联系方式"
-                             name="phone"
-                             value="phone"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="添加附件"
-                             name="attachment_path"
-                             value="attachment_path"
-                             border></el-checkbox>
-              </el-checkbox-group>
+            <!-- 项目复选框 -->
+            <div style="height: 132px; overflow: auto">
+              <el-checkbox class="el-checkbox-width"
+                           label="项目名"
+                           v-model="generateForm.project.name"
+                           border></el-checkbox>
+              <el-checkbox class="el-checkbox-width"
+                           label="主持人"
+                           v-model="generateForm.project.host"
+                           border></el-checkbox>
+              <el-checkbox class="el-checkbox-width"
+                           label="项目性质"
+                           v-model="generateForm.project.category"
+                           border></el-checkbox>
+              <el-checkbox class="el-checkbox-width"
+                           label="立项单位"
+                           v-model="generateForm.project.department"
+                           border></el-checkbox>
+              <el-checkbox class="el-checkbox-width"
+                           label="项目经费"
+                           v-model="generateForm.project.money"
+                           border></el-checkbox>
+              <el-checkbox class="el-checkbox-width"
+                           label="立项时间"
+                           v-model="generateForm.project.startTime"
+                           border></el-checkbox>
+              <el-checkbox class="el-checkbox-width"
+                           label="立项编号"
+                           v-model="generateForm.project.number"
+                           border></el-checkbox>
+              <el-checkbox class="el-checkbox-width"
+                           label="验收时间"
+                           v-model="generateForm.project.endTime"
+                           border></el-checkbox>
+              <!--
+              <el-checkbox class="el-checkbox-width"
+                           label="添加附件"
+                           border></el-checkbox>
+                           -->
+              <div v-for="(item in arrayData" :key="item.id">
+                <el-input type="text" placeholder="请填写测试需求" v-model="item.data"></el-input>
+              </div>
+              <el-button type="primary" @click="add">+</el-button>
             </div>
           </el-card>
+          <!-- 教材卡片 -->
           <el-card style="background-color: #f6f8f8; margin-top: 10px">
-            <div class="div_head" slot="header">
+            <!-- 教材开关 -->
+            <div class="div-head" slot="header">
               <el-form-item label="教 材">
-                <el-switch v-model="generateForm.textbook.textbook" value="textbook"></el-switch>
+                <el-switch v-model="generateForm.textbook.has" value="textbook"></el-switch>
               </el-form-item>
             </div>
-            <div>
-              <el-checkbox-group v-model="generateForm.textbook.type">
-                <el-checkbox class="el-checkbox-width"
-                             label="教材名"
-                             name="name"
-                             value="name"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="主编"
-                             name="editor"
-                             value="editor"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="出版社"
-                             name="publishing_house"
-                             value="publishing_house"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="出版时间"
-                             name="publishing_time"
-                             value="publishing_time"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="入选时间"
-                             name="selection_time"
-                             value="selection_time"
-                             border></el-checkbox>
-                <el-checkbox class="el-checkbox-width"
-                             label="添加附件"
-                             name="attachment_path"
-                             value="attachment_path"
-                             border></el-checkbox>
-              </el-checkbox-group>
+            <!-- 教材复选框 -->
+            <div style="height: 88px; overflow: auto">
+            <el-checkbox class="el-checkbox-width"
+                         label="教材名"
+                         v-model="generateForm.textbook.name"
+                         border></el-checkbox>
+            <el-checkbox class="el-checkbox-width"
+                         label="主编"
+                         v-model="generateForm.textbook.editor"
+                         border></el-checkbox>
+            <el-checkbox class="el-checkbox-width"
+                         label="出版社"
+                         v-model="generateForm.textbook.publishingHouse"
+                         border></el-checkbox>
+            <el-checkbox class="el-checkbox-width"
+                         label="出版时间"
+                         v-model="generateForm.textbook.publishingTime"
+                         border></el-checkbox>
+            <el-checkbox class="el-checkbox-width"
+                         label="入选时间"
+                         v-model="generateForm.textbook.selectionTime"
+                         border></el-checkbox>
+            <!--
+            <el-checkbox class="el-checkbox-width"
+                         label="添加附件"
+                         border></el-checkbox>
+                         -->
             </div>
           </el-card>
-
         </el-form>
-
-        <div class="div_button">
-          <el-button @click="cancelForm" >取 消</el-button>
-          <el-button type="primary" @click="$refs.drawer.closeDrawer();generateBatch" :loading="loading">{{ loading ? '提交中 ...' : '确 定' }}</el-button>
-        </div>
-        </el-card>
       </el-container>
+
+      <div class="div-button">
+        <el-button type="primary" @click="generateBatch">生成批次</el-button>
+      </div>
+    </el-card>
+  </el-container>
 </template>
 
 <script>
@@ -137,68 +135,56 @@ export default {
   data () {
     return {
       // 返回年份
-      value3: '',
-      options: [{
-        value: 'year1',
-        label: '2021'
-      }, {
-        value: 'year2',
-        label: '2022'
-      }],
-      value: '',
-      dialog: false,
-      loading: false,
-      form: {
-        delivery1: false,
-        delivery2: false,
-        type: []
-      },
-      formLabelWidth: '80px',
-      timer: null,
+      year: '',
+      arrayData: [
+        { id: 0, data: '' }
+      ],
+      dataNum: 0,
       // 生成批次
       generateForm: {
         batch: {
           year: '',
-          name: ''
+          name: '',
+          endTime: ''
         },
         project: {
-          project: false,
-          type: []
+          has: false,
+          year: false,
+          batchIdx: false,
+          name: false,
+          host: false,
+          category: false,
+          categoryFirstLevel: false,
+          categorySecondLevel: false,
+          categoryThirdLevel: false,
+          department: false,
+          money: false,
+          number: false,
+          startTime: false,
+          endTime: false,
+          attachmentPath: false,
+          expand: []
         },
         textbook: {
-          textbook: false,
-          type: []
+          has: false,
+          year: false,
+          batchIdx: false,
+          name: false,
+          editor: false,
+          publishingHouse: false,
+          publishingTime: false,
+          selectionTime: false,
+          attachmentPath: false,
+          expand: []
         }
       }
     }
   },
   methods: {
-    // 抽屉
-    handleClose (done) {
-      if (this.loading) {
-        return
-      }
-      this.$confirm('确定要提交表单吗？')
-        .then(_ => {
-          this.loading = true
-          this.timer = setTimeout(() => {
-            done()
-            // 动画关闭需要一定的时间
-            setTimeout(() => {
-              this.loading = false
-            }, 400)
-          }, 2000)
-        })
-        .catch(_ => {})
-    },
-    cancelForm () {
-      this.loading = false
-      this.dialog = false
-      clearTimeout(this.timer)
-    },
     // 提交生成批次
     generateBatch () {
       // 1. 是否 project 和 textbook 都是 null，如果都是，直接 return
+      console.log(this.generateForm)
 
       this.$axios.post('/metadatas', this.generateForm).then(res => {
         console.log(res)
@@ -209,6 +195,22 @@ export default {
         }
         this.$message.success('生成批次成功！')
       })
+    },
+    delete (index) {
+      // 如果只有一个输入框则不可以删除
+      if (this.arrayData.length <= 1) {
+        return false
+      }
+      // 删除了数组中对应的数据也就将这个位置的输入框删除
+      this.arrayData.splice(index, 1)
+    },
+    add () {
+      this.arrayData.push(
+        {
+          id: this.dataNum++,
+          data: ''
+        }
+      )
     }
   }
 }
@@ -217,22 +219,22 @@ export default {
 <style scoped>
 .user-batch-card {
   width: 100%;
+  height: 96%;
 }
 
-.el-checkbox-width{
-  width: 150px;
-  height: 25px;
+.el-checkbox-width {
+  width: 25%;
+  height: auto;
   margin-left: 10px;
   margin-bottom: 5px;
 }
 
-.div_head{
+.div-head {
   height: 30px;
   text-align: left;
 }
 
-.div_button{
-  text-align: center;
+.div-button {
   margin-bottom: 20px;
   margin-top: 20px;
   float: right;

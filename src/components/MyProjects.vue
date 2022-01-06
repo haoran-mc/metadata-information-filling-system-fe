@@ -20,7 +20,7 @@ export default {
     const _this = this
     this.$nextTick(() => {
       const __this = _this
-      _this.$axios.get('/users/data/projects', {
+      _this.$axios.get('/user/data/projects', {
         params: {
           id: this.userId
         }
