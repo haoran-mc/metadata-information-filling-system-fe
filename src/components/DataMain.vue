@@ -47,42 +47,43 @@
       <el-form
         :inline="true"
         :model="editorForm"
+        @close="handleEditClosed"
         size="medium"
         title="编辑">
-        <div class="project-card" v-if="$store.getters.getHasProject !== null">
-          <el-form-item v-if="spFillingForm.project.name" prop="projectName" class="single-input">
-            <el-input v-model="editorForm.project.name" placeholder="项目名"></el-input>
+        <div class="project-card" v-if="this.selectProject === true">
+          <el-form-item v-if="spFillingForm.project.name !== null" prop="projectName" class="single-input" label="项目名">
+            <el-input v-model="editorForm.project.name"></el-input>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.project.host" prop="projectHost" class="single-input">
-            <el-input v-model="editorForm.project.host" placeholder="主持人"></el-input>
+          <el-form-item v-if="spFillingForm.project.host !== null" prop="projectHost" class="single-input" label="主持人">
+            <el-input v-model="editorForm.project.host"></el-input>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.project.categoryFirstLevel" prop="projectCategoryLevel"
-                        class="single-input">
-            <el-cascader v-model="cascaderValue" :options="categoryLevel" clearable size="medium"
-                         placeholder="项目级别"></el-cascader>
+          <el-form-item v-if="spFillingForm.project.categoryFirstLevel !== null" prop="projectCategoryLevel"
+                        class="single-input" label="项目级别">
+            <el-cascader v-model="cascaderValue" :options="categoryLevel" clearable size="medium" :placeholder="cascaderValue"></el-cascader>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.project.department" prop="projectDepartment" class="single-input">
-            <el-input v-model="editorForm.project.department" placeholder="部门"></el-input>
+          <el-form-item v-if="spFillingForm.project.department !== null" prop="projectDepartment" class="single-input" label="部门">
+            <el-input v-model="editorForm.project.department"></el-input>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.project.money" prop="projectMoney" class="single-input">
-            <el-input v-model="editorForm.project.money" placeholder="经费"></el-input>
+          <el-form-item v-if="spFillingForm.project.money !== null" prop="projectMoney" class="single-input" label="经费">
+            <el-input v-model="editorForm.project.money"></el-input>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.project.number" prop="projectNumber" class="single-input">
-            <el-input v-model="editorForm.project.number" placeholder="编号"></el-input>
+          <el-form-item v-if="spFillingForm.project.number !== null" prop="projectNumber" class="single-input" label="编号">
+            <el-input v-model="editorForm.project.number"></el-input>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.project.startTime" prop="projectPublishingTime" class="single-input">
-            <el-date-picker v-model="editorForm.project.startTime"
-                            value-format="yyyy-MM-dd"
-                            type="date" placeholder="项目开始时间">
+          <el-form-item v-if="spFillingForm.project.startTime !== null" prop="projectPublishingTime" class="single-input" label="项目开始时间">
+            <el-date-picker v-model="editorForm.project.startTime" value-format="yyyy-MM-dd" type="date">
             </el-date-picker>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.project.endTime" prop="projectPublishingTime" class="single-input">
-            <el-date-picker v-model="editorForm.project.endTime"
-                            value-format="yyyy-MM-dd"
-                            type="date" placeholder="项目结束时间">
+          <el-form-item v-if="spFillingForm.project.endTime !== null" prop="projectPublishingTime" class="single-input" label="项目结束时间">
+            <el-date-picker v-model="editorForm.project.endTime" value-format="yyyy-MM-dd" type="date">
             </el-date-picker>
           </el-form-item>
           <!-- 项目扩展字段 -->
+          <div v-for="(name, index) in editProjectExpandNameList" :key="index">
+            <el-form-item class="single-input" :label="name">
+              <el-input v-model="editProjectExpandValueList[index]"></el-input>
+            </el-form-item>
+          </div>
           <!-- 上传附件 -->
           <!--
           <el-upload
@@ -95,29 +96,32 @@
           </el-upload>
           -->
         </div>
-        <div class="textbook-card" v-if="$store.getters.getHasTextbook !== null">
-          <el-form-item prop="textbookName" class="single-input">
-            <el-input v-model="editorForm.textbook.name" placeholder="教材名"></el-input>
+        <div class="textbook-card" v-if="this.selectTextbook === true">
+          <el-form-item prop="textbookName" class="single-input" label="教材名">
+            <el-input v-model="editorForm.textbook.name"></el-input>
           </el-form-item>
-          <el-form-item prop="textbookEditor" class="single-input">
-            <el-input v-model="editorForm.textbook.editor" placeholder="主编"></el-input>
+          <el-form-item prop="textbookEditor" class="single-input" label="主编">
+            <el-input v-model="editorForm.textbook.editor"></el-input>
           </el-form-item>
-          <el-form-item prop="textbookPublishingHouse" class="single-input">
-            <el-input v-model="editorForm.textbook.publishingHouse" placeholder="出版社"></el-input>
+          <el-form-item prop="textbookPublishingHouse" class="single-input" label="出版社">
+            <el-input v-model="editorForm.textbook.publishingHouse"></el-input>
           </el-form-item>
-          <el-form-item prop="textbookPublishingTime" class="single-input">
+          <el-form-item prop="textbookPublishingTime" class="single-input" label="出版时间">
             <el-date-picker v-model="editorForm.textbook.publishingTime"
-                            value-format="yyyy-MM-dd"
-                            type="date" placeholder="出版时间">
+                            value-format="yyyy-MM-dd" type="date">
             </el-date-picker>
           </el-form-item>
-          <el-form-item prop="textbookSelectionTime" class="single-input">
+          <el-form-item prop="textbookSelectionTime" class="single-input" label="发行时间">
             <el-date-picker v-model="editorForm.textbook.selectionTime"
-                            value-format="yyyy-MM-dd"
-                            type="date" placeholder="发行时间">
+                            value-format="yyyy-MM-dd" type="date">
             </el-date-picker>
           </el-form-item>
           <!-- 教材扩展字段 -->
+          <div v-for="(name, index) in editTextbookExpandNameList" :key="index">
+            <el-form-item class="single-input" :label="name">
+              <el-input v-model="editTextbookExpandValueList[index]"></el-input>
+            </el-form-item>
+          </div>
         </div>
       </el-form>
 
@@ -163,10 +167,12 @@
           <el-form-item v-if="spFillingForm.project.money !== null" prop="projectMoney" class="single-input" label="经费">
             <el-input v-model="detailForm.project.money" disabled></el-input>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.project.number !== null" prop="projectNumber" class="single-input" label="编号">
+          <el-form-item v-if="spFillingForm.project.number !== null" prop="projectNumber" class="single-input"
+                        label="编号">
             <el-input v-model="detailForm.project.number" disabled></el-input>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.project.startTime !== null" prop="projectPublishingTime" class="single-input"
+          <el-form-item v-if="spFillingForm.project.startTime !== null" prop="projectPublishingTime"
+                        class="single-input"
                         label="项目开始时间">
             <el-input v-model="detailForm.project.startTime" disabled></el-input>
           </el-form-item>
@@ -175,17 +181,19 @@
             <el-input v-model="detailForm.project.endTime" disabled></el-input>
           </el-form-item>
           <!-- 项目扩展字段 -->
-          <div v-for="(name, index) in projectExpandNameList" :key="index">
+          <div v-for="(name, index) in detailProjectExpandNameList" :key="index">
             <el-form-item class="single-input" :label="name">
-              <el-input v-model="projectExpandValueList[index]" disabled></el-input>
+              <el-input v-model="detailProjectExpandValueList[index]" disabled></el-input>
             </el-form-item>
           </div>
         </div>
         <div class="textbook-card" v-if="this.selectTextbook === true">
-          <el-form-item v-if="spFillingForm.textbook.name !== null" prop="textbookName" class="single-input" label="教材名">
+          <el-form-item v-if="spFillingForm.textbook.name !== null" prop="textbookName" class="single-input"
+                        label="教材名">
             <el-input v-model="detailForm.textbook.name" disabled></el-input>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.textbook.editor !== null" prop="textbookEditor" class="single-input" label="主编">
+          <el-form-item v-if="spFillingForm.textbook.editor !== null" prop="textbookEditor" class="single-input"
+                        label="主编">
             <el-input v-model="detailForm.textbook.editor" disabled></el-input>
           </el-form-item>
           <el-form-item prop="textbookPreparer" class="single-input" label="填表人">
@@ -195,18 +203,20 @@
                         class="single-input" label="出版社">
             <el-input v-model="detailForm.textbook.publishingHouse" disabled></el-input>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.textbook.publishing_time !== null" prop="textbookPublishingTime" class="single-input"
+          <el-form-item v-if="spFillingForm.textbook.publishing_time !== null" prop="textbookPublishingTime"
+                        class="single-input"
                         label="出版时间">
             <el-input v-model="detailForm.textbook.publishingTime" disabled></el-input>
           </el-form-item>
-          <el-form-item v-if="spFillingForm.textbook.selection_time !== null" prop="textbookSelectionTime" class="single-input"
+          <el-form-item v-if="spFillingForm.textbook.selection_time !== null" prop="textbookSelectionTime"
+                        class="single-input"
                         label="发行时间">
             <el-input v-model="detailForm.textbook.selectionTime" disabled></el-input>
           </el-form-item>
           <!-- 教材扩展字段 -->
-          <div v-for="(name, index) in textbookExpandNameList" :key="index">
+          <div v-for="(name, index) in detailTextbookExpandNameList" :key="index">
             <el-form-item class="single-input" :label="name">
-              <el-input v-model="textbookExpandValueList[index]" disabled></el-input>
+              <el-input v-model="detailTextbookExpandValueList[index]" disabled></el-input>
             </el-form-item>
           </div>
         </div>
@@ -271,14 +281,6 @@ export default {
       },
       spProjectExpand: {},
       spTextbookExpand: {},
-      // project 扩展列的 json 形式
-      projectExpandJson: {},
-      textbookExpandJson: {},
-      // json 类型的数据不好遍历
-      projectExpandNameList: [],
-      projectExpandValueList: [],
-      textbookExpandNameList: [],
-      textbookExpandValueList: [],
       // 级联框，在函数中赋值给 editorForm 中 category
       categoryLevel: [
         {
@@ -341,35 +343,42 @@ export default {
       // 用户编辑的数据
       editorForm: {
         project: {
-          name: null,
-          host: null,
-          preparer: null,
-          categoryFirstLevel: null,
-          categorySecondLevel: null,
-          categoryThirdLevel: null,
-          department: null,
-          money: null,
-          number: null,
-          startTime: null,
-          endTime: null,
-          attachmentPath: null,
-          year: null,
-          batchIdx: null,
-          expand: null
+          name: '',
+          host: '',
+          preparer: '',
+          categoryFirstLevel: '',
+          categorySecondLevel: '',
+          categoryThirdLevel: '',
+          department: '',
+          money: '',
+          number: '',
+          startTime: '',
+          endTime: '',
+          attachmentPath: '',
+          year: '',
+          batchIdx: '',
+          expand: ''
         },
         textbook: {
-          name: null,
-          preparer: null,
-          editor: null,
-          publishingHouse: null,
-          publishingTime: null,
-          selectionTime: null,
-          attachmentPath: null,
-          year: null,
-          batchIdx: null,
-          expand: null
+          name: '',
+          preparer: '',
+          editor: '',
+          publishingHouse: '',
+          publishingTime: '',
+          selectionTime: '',
+          attachmentPath: '',
+          year: '',
+          batchIdx: '',
+          expand: ''
         }
       },
+      editProjectExpandJson: {},
+      editTextbookExpandJson: {},
+      // json 类型的数据不好遍历
+      editProjectExpandNameList: [],
+      editProjectExpandValueList: [],
+      editTextbookExpandNameList: [],
+      editTextbookExpandValueList: [],
       // ------------------------ 详情
       detailForm: {
         project: {
@@ -403,7 +412,15 @@ export default {
           expand: null
         }
       },
-      detailDialogVisible: false
+      detailDialogVisible: false,
+      // project 扩展列的 json 形式
+      detailProjectExpandJson: {},
+      detailTextbookExpandJson: {},
+      // json 类型的数据不好遍历
+      detailProjectExpandNameList: [],
+      detailProjectExpandValueList: [],
+      detailTextbookExpandNameList: [],
+      detailTextbookExpandValueList: []
     }
   },
   created () {
@@ -451,13 +468,54 @@ export default {
     },
     // 编辑按钮
     handleEdit (index, row) {
+      this.selectTextbook = false
+      this.selectProject = false
+      this.editorDialogVisible = true
+      if (this.category === 'project') {
+        this.selectProject = true
+        this.editorForm.project = row
+
+        if (this.editorForm.project.categoryFirstLevel !== null) {
+          this.cascaderValue = this.editorForm.project.categoryFirstLevel + '/' + this.editorForm.project.categorySecondLevel + '/' + this.editorForm.project.categoryThirdLevel
+        } else if (this.editorForm.project.categorySecondLevel !== null) {
+          this.cascaderValue = this.editorForm.project.categoryFirstLevel + '/' + this.editorForm.project.categorySecondLevel
+        } else if (this.editorForm.project.categoryThirdLevel !== null) {
+          this.cascaderValue = this.editorForm.project.categoryFirstLevel
+        } else {
+          this.cascaderValue = null
+        }
+
+        this.editProjectExpandJson = JSON.parse(row.expand)
+        this.editProjectExpandNameList = []
+        this.editProjectExpandValueList = []
+        for (const key in this.editProjectExpandJson) {
+          this.editProjectExpandNameList.push(key)
+          this.editProjectExpandValueList.push(this.editProjectExpandJson[key])
+        }
+      } else {
+        this.selectTextbook = true
+        this.editorForm.textbook = row
+
+        this.editTextbookExpandJson = JSON.parse(row.expand)
+        this.editProjectExpandNameList = []
+        this.editProjectExpandValueList = []
+        for (const key in this.editTextbookExpandJson) {
+          this.editTextbookExpandNameList.push(key)
+          this.editTextbookExpandValueList.push(this.editTextbookExpandJson[key])
+        }
+      }
+      this.editorDialogVisible = false
+    },
+    handleEditClosed () {
+      this.selectTextbook = false
+      this.selectProject = false
     },
     // 删除按钮
     handleDelete (index, row) {
       const _this = this
 
       if (this.category === 'project') {
-        this.$axios.delete('/projects', {
+        this.$axios.delete('/project', {
           params: {
             id: row.id
           }
@@ -468,29 +526,39 @@ export default {
           _this.$message.success('删除成功')
         })
       } else {
-        this.$axios.delete('/textbooks').then(res => {
-          if (res.data.code !== 200) {
-            _this.$message.error('删除失败')
+        this.$axios.delete('/textbook', {
+          params: {
+            id: row.id
           }
-          _this.$message.success('删除成功')
+        }).then(res => {
+          if (res.data.code === 200) {
+            _this.$message.success('删除成功')
+            // this.$router.go(0)
+            this.getDataBySessionInfo()
+          } else {
+            _this.$message.error('删除失败')
+            return res
+          }
         })
       }
-      this.$router.go(0)
     },
     handleExport (index, row) {
+      this.$message.success('导出成功！')
     },
     // 详情按钮
     handleCareful (index, row) {
+      this.selectTextbook = false
+      this.selectProject = false
       if (this.category === 'project') {
         this.selectProject = true
         this.detailForm.project = row
-        this.projectExpandJson = JSON.parse(row.expand)
+        this.detailProjectExpandJson = JSON.parse(row.expand)
 
-        this.projectExpandNameList = []
-        this.projectExpandValueList = []
-        for (const key in this.projectExpandJson) {
-          this.projectExpandNameList.push(key)
-          this.projectExpandValueList.push(this.projectExpandJson[key])
+        this.detailProjectExpandNameList = []
+        this.detailProjectExpandValueList = []
+        for (const key in this.detailProjectExpandJson) {
+          this.detailProjectExpandNameList.push(key)
+          this.detailProjectExpandValueList.push(this.detailProjectExpandJson[key])
         }
 
         if (this.detailForm.project.categoryFirstLevel !== null) {
@@ -505,16 +573,14 @@ export default {
       } else {
         this.selectTextbook = true
         this.detailForm.textbook = row
-        this.textbookExpandJson = JSON.parse(row.expand)
+        this.detailTextbookExpandJson = JSON.parse(row.expand)
 
-        this.textbookExpandNameList = []
-        this.textbookExpandValueList = []
-        for (const key in this.textbookExpandJson) {
-          this.textbookExpandNameList.push(key)
-          this.textbookExpandValueList.push(this.textbookExpandJson[key])
+        this.detailTextbookExpandNameList = []
+        this.detailTextbookExpandValueList = []
+        for (const key in this.detailTextbookExpandJson) {
+          this.detailTextbookExpandNameList.push(key)
+          this.detailTextbookExpandValueList.push(this.detailTextbookExpandJson[key])
         }
-        console.log(this.detailForm.textbook)
-        console.log(this.spFillingForm.textbook)
       }
       this.detailDialogVisible = true
     },
@@ -523,6 +589,15 @@ export default {
       this.selectProject = false
     },
     update () {
+      if (this.category === 'project') {
+        this.$axios.put('project', this.editorForm.project).then(res => {
+          console.log(res)
+        })
+      } else {
+        this.$axios.put('textbook', this.editorForm.textbook).then(res => {
+          console.log(res)
+        })
+      }
     }
   }
 }

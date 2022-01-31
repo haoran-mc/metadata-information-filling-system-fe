@@ -52,7 +52,6 @@ export default {
       const _this = this
       this.$axios.get('/batches').then(res => {
         if (res.data.code === 200) {
-          console.log(res)
           _this.batches = res.data.data
 
           _this.collapseMap = {}
@@ -88,8 +87,6 @@ export default {
           batch_idx: row.batchIdx
         }
       }).then(res => {
-        console.log(res)
-        console.log(row)
         if (res.data.code === 200) {
           _this.sp = res.data.data.sp
           _this.spProject = res.data.data.project

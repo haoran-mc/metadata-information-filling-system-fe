@@ -16,20 +16,23 @@ export default {
     }
   },
   mounted () {
-    console.log(this.userId)
     const _this = this
     this.$nextTick(() => {
-      const __this = _this
-      _this.$axios.get('/user/data/projects', {
+      if (this.userId === null) {
+        this.$message.error('无法获取个人信息，请重新登录！')
+        this.$store.commit('REMOVE_INFO')
+        this.$store.commit('increment')
+      }
+      this.$axios.get('/user/data/projects', {
         params: {
           id: this.userId
         }
       }).then(res => {
-        if (res.data.code !== 200) {
+        if (res.data.code === 200) {
+          _this.tableData = res.data.data
+        } else {
           _this.$message.error('请求失败')
-          return res
         }
-        __this.tableData = res.data.data
       })
     })
   },
@@ -42,9 +45,4 @@ export default {
 </script>
 
 <style scoped>
-.user-data-infinite-scroll {
-  overflow:auto;
-  height: 300px;
-  background-color: #f6f8f8;
-}
 </style>

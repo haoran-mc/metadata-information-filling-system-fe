@@ -283,7 +283,6 @@ export default {
     setCategory (category) {
       this.category = category
       this.$store.commit('SET_CATEGORY', category)
-      // this.$store.commit('increment')
       this.$router.go(0)
     },
     fillingDialogClosed () {
@@ -320,12 +319,13 @@ export default {
       }
 
       this.$axios.post('/batch', this.userFillingForm).then(res => {
-        if (res.data.code !== 200) {
+        if (res.data.code === 200) {
+          _this.$message.success('填报成功')
+          _this.fillingDialogVisible = false
+        } else if (res.data.code === 201) {
+          _this.fillingDialogVisible = false
           this.$message.error('填报请求失败')
-          return res
         }
-        _this.$message.success('填报成功')
-        _this.fillingDialogVisible = false
       })
     },
     exportToExcel () {

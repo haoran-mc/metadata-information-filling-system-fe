@@ -135,7 +135,7 @@ export default {
             if (res.data.code === 200) {
               console.log('点击登录按钮，后端发来的数据：', res)
 
-              const token = res.headers.authorization
+              const token = res.headers.satoken
               const userInfo = res.data.data
               _this.$store.commit('SET_TOKEN', token)
               _this.$store.commit('SET_USERINFO', userInfo)

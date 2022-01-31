@@ -10,7 +10,7 @@
             <span slot="title">基本信息</span>
           </el-menu-item>
           <!-- 我的填报 -->
-          <el-menu-item index="/user/data" @click="saveNavState('/user/data/projects')">
+          <el-menu-item index="/user/data" @click="saveNavState('/user/data')">
             <i class="el-icon-document"></i>
             <span slot="title">我的填报</span>
           </el-menu-item>
@@ -52,6 +52,9 @@ export default {
     saveNavState (activePath) {
       window.sessionStorage.setItem('activePath', activePath)
       this.activePath = activePath
+      if (activePath === '/user/data') {
+        activePath = activePath + '/projects'
+      }
       this.$router.push(activePath)
     },
     // 退出登录
@@ -97,10 +100,4 @@ export default {
   width: 90%;
   margin: 0 auto;
 }
-
-/*
-.user-main {
-  margin: 0 auto;
-}
-*/
 </style>

@@ -76,7 +76,7 @@
                            label="添加附件"
                            border></el-checkbox>
                            -->
-              <div v-for="(item in arrayData" :key="item.id">
+              <div v-for="(item, index) in arrayData" :key="index">
                 <el-input type="text" placeholder="请填写测试需求" v-model="item.data"></el-input>
               </div>
               <el-button type="primary" @click="add">+</el-button>
